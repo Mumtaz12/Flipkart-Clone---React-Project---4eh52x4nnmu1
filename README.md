@@ -6,7 +6,7 @@ In this article, we will go in-depth and discuss-
 How I have made the project?
 What are the challenges I have faced throughout the project?
 What Tech I have used?
-I have developed the project individually within 3 days of time frame where I have cloned the basic design and feature like add to cart. I have faced so many challenges like adding the modals, It was not coming well but I have figured it out and done it at EOD. I have used HTML, CSS, JAVASCRIPT, REACT, and REDUX on making these.
+I have developed the project individually within 6 days of time frame where I have cloned the basic design and feature like add to cart. I have faced so many challenges like adding the modals, It was not coming well but I have figured it out and done it at EOD. I have used HTML, CSS, JAVASCRIPT, REACT, and REDUX on making these.
 
 ## Key Learnings & Overview of Project-
 
