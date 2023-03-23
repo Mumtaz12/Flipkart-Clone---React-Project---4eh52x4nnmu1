@@ -1,5 +1,5 @@
-#Making the Project Flipkart clone using React
-##About the Project
+# Making the Project Flipkart clone using React
+## About the Project
 The Flipkart clone was developed by me within one week. I have done all the parts of it like designing the page, adding the features and also face so many challenges in doing it, but It was not fully cloned now, I have working on it and making it perfect day by day.
 
 In this article, we will go in-depth and discuss-
@@ -8,9 +8,9 @@ What are the challenges I have faced throughout the project?
 What Tech I have used?
 I have developed the project individually within 3 days of time frame where I have cloned the basic design and feature like add to cart. I have faced so many challenges like adding the modals, It was not coming well but I have figured it out and done it at EOD. I have used HTML, CSS, JAVASCRIPT, REACT, and REDUX on making these.
 
-##Key Learnings & Overview of Project-
+## Key Learnings & Overview of Project-
 
-###Some key learnings are-
+### Some key learnings are-
 
 
 Time management: I have managed the time properly and able to design the basic structure and functionality of the website within 3 days, It was come due to the experience of working in more than 7 projects both individually and collaboratively.
