@@ -1,97 +1,119 @@
-// Mui imports
-import { AppBar, Drawer, IconButton, List, ListItem, Toolbar } from '@mui/material';
-import styled from '@emotion/styled';
-import { Box } from '@mui/system';
+import React, { useState } from "react";
+import {
+  AppBar,
+  Toolbar,
+  Box,
+  Typography,
+  IconButton,
+  Drawer,
+  List,
+  styled,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import { Link } from "react-router-dom";
+import Search from "./Search";
+import CustomButtons from "./CustomButtons";
 
-// Mui icon imports
-import MenuIcon from '@mui/icons-material/Menu';
+const StyleHeader = styled(AppBar)`
+  background: #2874f0;
+  height: 55px;
+`;
 
-// components imports
-import Search from './Search';
-import CustomButtons from './CustomButtons';
+//changed Box to Link for routing
+const Component = styled(Link)`
+  margin-left: 12%;
+  line-height: 0;
+  text-decoration: none;
+  color: inherit;
+`;
 
-// react-router-dom imports
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+const SubHeading = styled(Typography)`
+  font-size: 10px;
+  font-style: italic;
+`;
 
-//-------------mui custom css styles-----------------//
-const StyledHeader = styled(AppBar)({
-  backgroundColor: '#2874f0',
-  height: '56px',
+const PlusImage = styled("img")({
+  width: 10,
+  height: 10,
+  marginLeft: 4,
 });
 
-const Component = styled(Box)({
-  margin: '12%',
-  marginRight: '0px',
-  color: 'inherit',
-  textDecoration: 'none',
-});
+const PlusWrapper = styled(Box)`
+  font-weight: 600;
+`;
 
-const CustomButtonWrapper = styled(Box)(({theme}) => ({
-  margin: '0 5% 0 auto',
-  [theme.breakpoints.down('md')]:{
-    display: 'none'
-  }
-}))
+const CustomButtonWrapper = styled("span")(({ theme }) => ({
+  margin: "0 5% 0 auto",
+  [theme.breakpoints.down("sm")]: {
+    display: "none",
+  },
+}));
 
+const MenuButton = styled(IconButton)(({ theme }) => ({
+  display: "none",
+  [theme.breakpoints.down("sm")]: {
+    display: "block",
+  },
+}));
 
-const MenuButton = styled(IconButton)(({theme}) => ({
-  display: 'none',
-  [theme.breakpoints.down('md')]:{
-    display: 'block'
-  }
-}))
-//-------xxx------mui custom css styles---------xxx--------//
+// main function
+const Header = () => {
+  const logoURL =
+    "https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/flipkart-plus_8d85f4.png";
+  const subURL =
+    "https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/plus_aef861.png";
 
-export default function Header() {
-  // state for opening and closing header dreawer
-  const [open,setOpen] = useState(false);
-  
-  // function for closing drawer
-  const handleOpen = () => {
-      setOpen(true)
-  }
+  const [open, setOpen] = useState(false);
 
-  // function for opening drewer
   const handleClose = () => {
-      setOpen(false)
-  }
+    setOpen(false);
+  };
 
-  // function for showing list. here list & listItems act as an ul & li in html.
-  // giving button variable inside ListItem to act as an Button.
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   const list = () => (
-    <Box sx={{width: 200}} onClick={handleClose}>
+    <Box style={{ width: 250 }} onClick={handleClose}>
       <List>
-        <ListItem button>
+        <listItem button>
           <CustomButtons />
-        </ListItem>
+        </listItem>
       </List>
     </Box>
-  )
-
-  const logoUrl =
-    'https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/fk-plus_3b0baa.png';
-  return (
-    <div>
-      <StyledHeader>
-        <Toolbar style={{ minHeight: 56 }}>
-          <MenuButton>
-            <MenuIcon sx={{color: 'white'}} onClick={handleOpen}/>
-          </MenuButton>
-          <Drawer open={open} onClose={handleClose}>
-            {list()}
-          </Drawer>
-          <Link to='/'>
-            <Component>
-              <img src={logoUrl} alt='flipkart logo' style={{ width: 75 }} />
-            </Component>
-          </Link>
-          <Search />
-          <CustomButtonWrapper>
-            <CustomButtons />
-          </CustomButtonWrapper>
-        </Toolbar>
-      </StyledHeader>
-    </div>
   );
-}
+  return (
+    <StyleHeader>
+      <Toolbar style={{ minHeight: 55 }}>
+        <MenuButton color="inherit" onClick={handleOpen}>
+          <MenuIcon />
+        </MenuButton>
+
+        <Drawer open={open} onClose={handleClose}>
+          {list()}
+        </Drawer>
+
+        <Component to="/">
+          <img src={logoURL} style={{ width: 75 }} />
+          <Box component="span" style={{ display: "flex" }}>
+            <SubHeading>
+              Explore&nbsp;
+              <PlusWrapper component="span" style={{ color: "#FFE500" }}>
+                Plus
+              </PlusWrapper>
+            </SubHeading>
+            <PlusImage src={subURL} />
+          </Box>
+        </Component>
+
+        <Search />
+
+        <CustomButtonWrapper>
+          <CustomButtons />
+        </CustomButtonWrapper>
+      </Toolbar>
+    </StyleHeader>
+  );
+};
+
+export default Header;

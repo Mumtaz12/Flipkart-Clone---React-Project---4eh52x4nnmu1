@@ -1,98 +1,96 @@
-//components imports
+import React, { useEffect, useState, useContext } from 'react'
+import { Box, Typography, Badge, Button, styled } from '@mui/material';
+import { ShoppingCart } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 import LoginDialog from '../login/LoginDialog';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCartTotal } from '../../feature/cartSlice';
 import Profile from './Profile';
 
-import {Link} from 'react-router-dom'
+const Container = styled(Link)(({ theme }) => ({
+  display: 'flex',
+  [theme.breakpoints.down('sm')]: {
+    display: 'block'
+  }
+}));
 
-// mui imports
-import { Badge, Box, Button, Typography } from '@mui/material';
-
-//icon imports
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import styled from '@emotion/styled';
-
-// context api
-import { useState } from 'react';
-import { useContext } from 'react';
-import { DataContext } from '../../context/DataProvider';
-
-// react-redux
-import { useSelector } from 'react-redux';
-
-//--------custom Mui styles--------//
 const Wrapper = styled(Box)(({ theme }) => ({
+  margin: '0 3% 0 auto',
   display: 'flex',
   '& > *': {
     marginRight: '40px !important',
-    fontSize: '16px',
+    textDecoration: 'none',
+    color: '#FFFFFF',
+    fontSize: 12,
     alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      color: '#2874f0',
+      alignItems: 'center',
+      display: 'flex',
+      flexDirection: 'column',
+      marginTop: 10
+    }
   },
-  [theme.breakpoints.down('md')]: {
-    display: 'block',
-  },
+  [theme.breakpoints.down('sm')]: {
+    display: 'block'
+  }
 }));
 
-const Container = styled(Link)({
-  textDecoration: 'none',
-  color: 'inherit',
-  display: 'flex',
-});
-
-const LoginButton = styled(Button)({
-  color: '#2874f0',
-  background: '#FFFFFF',
-  textTransform: 'none',
-  padding: '5px, 40px',
-  borderRadius: '2px',
-  boxshadow: 'none',
-  fontWeight: 600,
-  height: '32px',
-  '&:hover': {
-    background: '#FFFFFF',
-  },
-});
-//--------muistyles-----------//
-
-export default function CustomButtons() {
-  const {cartItems} = useSelector(state => state.cart)
-
+const LoginButton = styled(Button)`
+  color: #2874f0;
+  background: #FFFFFF;
+  text-transform: none;
+  font-weight: 600;
+  border-radius: 1px;
+  padding: 5px 40px;
+  height: 32px;
+  box-shadow: none;
+  margin-left:20px;
+`
+//=========================================function starts===========================
+const CustomButton = () => {
+  
+  //==================localStrorage
+  const [accountPresent, setAccountPresent] = useState(false);
+  const localUserName = localStorage.getItem('signup')
+  
   const [open, setOpen] = useState(false);
-  const { account, setAccount } = useContext(DataContext); // context states
 
-  const OpenDialog = () => {
+  const openDialog = () => {
     setOpen(true);
-  };
+  }
+
+  const { cart, totalQuantity } = useSelector((state) => state.allCart);
+
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(getCartTotal());
+    if (localStorage.getItem("signup") !== null) {
+      setAccountPresent(true);
+    }
+  }, [cart]);
+
+
 
   return (
-    /* if the user exits passing account username to profile & 
-         setAccount to profile to change current state
-      */
     <Wrapper>
-      {account ? (
-        <Profile account={account} setAccount={setAccount} />
-      ) : (
-        <LoginButton variant='contained' onClick={() => OpenDialog()}>
-          Login
-        </LoginButton>
-      )}
-      <Typography style={{ marginTop: 3 }}>Become a Seller</Typography>
-      <Typography style={{ marginTop: 3 }}>More</Typography>
+      {
+        accountPresent ? <Profile localUserName={localUserName} accountPresent={accountPresent} setAccountPresent={setAccountPresent} /> :
+        <LoginButton variant='contained' onClick={openDialog}>Login</LoginButton>
+      }
+      <Typography style={{ marginTop: 3, width: 135, cursor:'pointer' }}>Become a Seller</Typography>
+      <Typography style={{ marginTop: 3, cursor: 'pointer' }}>More</Typography>
+
       <Container to='/cart'>
-        <Badge badgeContent={cartItems?.length} color='secondary'>
-          <ShoppingCartIcon />
+        <Badge badgeContent={totalQuantity} color="error">
+          <ShoppingCart />
         </Badge>
-        <Typography style={{marginLeft: 10}}>Cart</Typography>
+        <Typography style={{ marginLeft: 10 }}>Cart</Typography>
       </Container>
-      <LoginDialog open={open} setOpen={setOpen} />
+      <LoginDialog open={open} setOpen={setOpen} setAccountPresent={setAccountPresent } />
     </Wrapper>
-  );
+  )
 }
-// line 74: login dialog component from mui. passing open & setOpen state to it
 
-// backup css style
-
-// '& > *': {
-//     marginRight: '40px',
-//     fontSize: '16px',
-//     alignItems: 'center',
-//   },
+export default CustomButton

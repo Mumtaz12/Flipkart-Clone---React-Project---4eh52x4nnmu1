@@ -1,58 +1,48 @@
 import { useState } from 'react';
+import { Typography, Menu, MenuItem, Box, styled } from '@mui/material';
+import { PowerSettingsNew } from '@mui/icons-material';
 
-// mui imports
-import styled from '@emotion/styled';
-import { Menu, MenuItem, Typography } from '@mui/material'
-import { Box } from '@mui/system'
-
-//mui icon imports
-import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
-
-
-//-----custom mui styles--------//
 const Component = styled(Menu)`
-margin-top: 5px;
-`
+    margin-top: 5px;
+`;
 
 const Logout = styled(Typography)`
-margin-left: 10px;
-font-size: 16x;
-`
-//---**---custom mui styles----**---//
+    font-size: 14px;
+    margin-left: 5px;
+`;
 
-// getting account & setAccount state from customButtons
-function Profile({account,setAccount}) {
-    const [open,setOpen] = useState(false);
+const Profile = ({ localUserName, setAccountPresent }) => {
+    const [open, setOpen] = useState(false);
 
     const handleClick = (event) => {
-        setOpen(event.currentTarget)
-    }
+        setOpen(event.currentTarget);
+    };
 
     const handleClose = () => {
         setOpen(false);
+    };
+
+    const logout = () => {
+        localStorage.removeItem('signup');
+        setAccountPresent(false);
+        alert("Logged Out ✈ Successfully!")
     }
 
-    const logoutUser = () => {
-      // reseting the state to empty after user logout.(context initial state was empty string)
-      setAccount('');
-    }
-
-  return (
-    <Box>
-      <Typography
-        sx={{ marginTop: 0.4, cursor: 'pointer' }}
-        onClick={handleClick}
-      >
-        {account}
-      </Typography>
-      <Component anchorEl={open} open={Boolean(open)} onClose={handleClose}>
-        <MenuItem onClick={() => {handleClose(); logoutUser()}} onClose={handleClose}>
-          <PowerSettingsNewIcon color='primary' fontSize='small'/>
-          <Logout>Logout</Logout>
-        </MenuItem>
-      </Component>
-    </Box>
-  );
+    return (
+        <>
+            <Box onClick={handleClick}><Typography style={{ marginTop: 2 }}>{localUserName}</Typography></Box>
+            <Component
+                anchorEl={open}
+                open={Boolean(open)}
+                onClose={handleClose}
+            >
+                <MenuItem onClick={() => { handleClose(); logout(); }}>
+                    <PowerSettingsNew fontSize='small' color='primary' />
+                    <Logout>Logout</Logout>
+                </MenuItem>
+            </Component>
+        </>
+    )
 }
 
-export default Profile
+export default Profile;
