@@ -1,73 +1,91 @@
-// Mui imports
-import styled from '@emotion/styled'
-import { Box, Button, Typography } from '@mui/material'
 
-// React-redux imports
-import { useDispatch } from 'react-redux';
-import { removeCart } from '../../redux/actions/cartAction';
+import { Card, Box, ButtonGroup, Typography, Button, styled } from '@mui/material';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeItem, decreaseItemQuantity, increaseItemQuantity } from '../../feature/cartSlice';
 
-// utils imports
-import { addEllipse } from '../../utils/utils';
-import GroupedButton from './ButtonGroup';
 
-//-------MUi styles---------//
-const Component = styled(Box)`
+const Component = styled(Card)`
     border-top: 1px solid #f0f0f0;
+    border-radius: 0px;
     display: flex;
-    background: #fff
 `;
 
-const LeftContainer = styled(Box)`
-margin: 20px;
-display: flex;
-flex-direction: column;
-`
+const LeftComponent = styled(Box)`
+    margin: 20px; 
+    display: flex;
+    flex-direction: column;
+`;
+
 const SmallText = styled(Typography)`
-color: #878787;
-font-size: 14px;
-margin-top: 10px;
+    color: #878787;
+    font-size: 14px;
+    margin-top: 10px;
 `;
 
-const RemoveButton = styled(Button)({
-    color: '#000',
-    marginTop: 20,
-    fontSize: 16,
-    fontWeight: 600,
-})
-//-----xxx---Mui styles---xxx------//
+const Cost = styled(Typography)`
+    font-size: 18px;
+    font-weight: 600;
+`;
 
-function CartItem({item}) {
-    // redux functions
+const MRP = styled(Typography)`
+    color: #878787;
+`;
+
+const Discount = styled(Typography)`
+    color: #388E3C;
+`;
+
+const Remove = styled(Button)`
+    margin-top: 20px;
+    font-size: 16px;
+`;
+const ButtonComponent = styled(ButtonGroup)`
+    margin-top: 30px;
+`;
+
+const StyledButton = styled(Button)`
+    border-radius: 50%;
+`;
+
+const CartItem = ({ item, totalQuantity, totalprice }) => {
+
+    const { cart } = useSelector((state) => state.allCart);
+
+    useEffect(() => {
+        localStorage.setItem("shoppingCart", JSON.stringify(cart));
+    }, [cart])
+
+    const fassured = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/fa_62673a.png';
+
     const dispatch = useDispatch();
-    const RemoveCart = (id) => {
-        dispatch(removeCart(id));
-    }
-  return (
-    <Component>
-      <LeftContainer>
-        <img src={item.url} alt='' srcset='' style={{height: 110, width: 110}}/>
-        <GroupedButton/>
-      </LeftContainer>
-      <Box>
-        <Typography>{addEllipse(item.title)}</Typography>
-        <SmallText>Seller: mdNet</SmallText>
-        <Typography style={{ margin: '20px 0' }}>
-          <Box component='span' style={{ fontSize: 28,fontWeight: 600 }}>
-            ₹{item.price}
-          </Box>
-          &nbsp;&nbsp;&nbsp;
-          <Box component='span' style={{ color: '#878787' }}>
-            <strike>₹{item.price}</strike>
-          </Box>
-          &nbsp;&nbsp;&nbsp;
-          <Box component='span' style={{ color: '#388E3c' }}>
-            {item.price} off
-          </Box>
-        </Typography>
-        <RemoveButton onClick={() => RemoveCart(item.id)}>Remove</RemoveButton>
-      </Box>
-    </Component>
-  );
+    return (
+        <Component>
+            <LeftComponent>
+                <img src={item.image} style={{ height: 110, width: 110 }} />
+                
+                <ButtonComponent>
+                    <StyledButton onClick={() => dispatch(decreaseItemQuantity(item.id))}>-</StyledButton>
+                    <Button disabled>{item.quantity}</Button>
+                    <StyledButton onClick={() => dispatch(increaseItemQuantity(item.id))}>+</StyledButton>
+                </ButtonComponent>
+
+            </LeftComponent>
+            <Box style={{ margin: 20 }}>
+                <Typography>{item.title}</Typography>
+                <SmallText>Seller:RetailNet
+                    <span><img src={fassured} style={{ width: 50, marginLeft: 10 }} /></span>
+                </SmallText>
+                <Typography style={{ margin: '20px 0' }}>
+                    <Cost component="span">${item.price}</Cost>&nbsp;&nbsp;&nbsp;
+                    <MRP component="span"><strike>${item.price}</strike></MRP>&nbsp;&nbsp;&nbsp;
+                    <Discount component="span">{item.price} off</Discount>
+                </Typography>
+                <Box>{item.quantity}</Box>
+                <Remove onClick={() => dispatch(removeItem(item.id))}>Remove</Remove>
+            </Box>
+        </Component>
+    )
 }
 
-export default CartItem
+export default CartItem;
