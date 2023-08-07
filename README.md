@@ -1,47 +1,70 @@
-# Making the Project Flipkart clone using React
-## About the Project
-The Flipkart clone was developed by me within one week. I have done all the parts of it like designing the page, adding the features and also face so many challenges in doing it, but It was not fully cloned now, I have working on it and making it perfect day by day.
+# Getting Started with Create React App
 
-In this article, we will go in-depth and discuss-
-How I have made the project?
-What are the challenges I have faced throughout the project?
-What Tech I have used?
-I have developed the project individually within 6 days of time frame where I have cloned the basic design and feature like add to cart. I have faced so many challenges like adding the modals, It was not coming well but I have figured it out and done it at EOD. I have used HTML, CSS, JAVASCRIPT, REACT, and REDUX on making these.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Key Learnings & Overview of Project-
+## Available Scripts
 
-### Some key learnings are-
+In the project directory, you can run:
 
+### `npm start`
 
-Time management: I have managed the time properly and able to design the basic structure and functionality of the website within 3 days, It was come due to the experience of working in more than 7 projects both individually and collaboratively.
-Ownership: As I was doing the project on my own I have to make the whole project within three days as I have set the deadline which plays an important role in making the project within time. so, I have taken ownership of the project and seen the design and implemented it, and finally made the project completed within the time.
-During the project, I have learned not to stick for too long in a single feature. As It will eat up the time and our project will not have a good number of basic features which can be implemented easily.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-Some Snapshots of my project-
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-HOME PAGE
-Login and register functionality.
-Add to cart showing with total no.of products and total sum.
-payment using paytm payment gateway.
-complete responsive website.
-Remove Item from cart.
-search product using searchbar.
+### `npm test`
 
-Register Page
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+### `npm run build`
 
-Product Details
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-Tech Stack
-HTML
-CSS
-JavaScript
-React
-Redux
-Material UI
-Bootstrap
-Challenges-
-I have faced the issue of implementing the modals properly through the material UI.
-Also, one of the challenges was to make the cloned website pixel-perfect.
-I have also faced the challenge of doing the private Route part.
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
