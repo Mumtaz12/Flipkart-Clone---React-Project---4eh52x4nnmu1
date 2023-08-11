@@ -12,6 +12,7 @@
     flex-wrap: wrap;
 
     float:unset;
+    cursor: pointer;
 }
 
 .imageheader>img {
@@ -26,6 +27,11 @@
     font-weight: 600;
 
 }
+.mobile{
+    border-radius: 10px;
+    cursor: pointer;
+}
+
 /*.image_details:hover{*/
 
 /*    transform: scaleX(1.2) scaleY(1.2);*/
@@ -85,7 +91,8 @@
 
 
 .image_details>img {
-    margin:0;
+    margin:5px;
+    padding: 5px;
     width: 13.5rem;
     height:11.1rem;
     flex-wrap: wrap;

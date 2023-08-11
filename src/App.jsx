@@ -30,7 +30,7 @@ function handleHome(){
       <Header searchValue={searchValue} handleHome={handleHome} />
      {!value && <HeaderImage  handleCategory={handleCategory}/>   }
      <Mydata value={value} cate={cate} />
-     {/*<Footer/>*/}
+     <Footer/>
 
       
      

@@ -34,7 +34,7 @@ console.log(searchedData);
   return (
     <>
       {!value && !cate && <Offerdata />}
-      {cate==='Travel'?(<div>
+      {cate==='Travel' || cate==='Electronics'?(<div>
         <h1>
         Coming Soon!
         </h1>
