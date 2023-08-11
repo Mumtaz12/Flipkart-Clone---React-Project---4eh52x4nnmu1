@@ -87,6 +87,15 @@ const Header = ({searchValue,handleHome}) => {
 
 export default Header
 
+
+
+
+
+
+
+
+
+
 //
 // const Header = ({ searchValue, handleHome }) => {
 //     const [openmodal, setOpenModal] = useState(false);

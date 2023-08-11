@@ -62,60 +62,61 @@
 /*    !*margin: -20px 0px -20px -30px;*!*/
 /*}*/
 
-/*@media (max-width: 600px) {*/
-/*    .loginPage {*/
-/*        flex-direction: column;*/
-/*    }*/
-/*}*/
+@media (max-width: 600px) {
+    .loginPage {
+        flex-direction: column;
+        background-color: #e0e0e0;
+     flex-wrap: wrap;
+    }
+    .rightLoginPage {
+       text-align: center;
 
-/*@media (max-width: 400px) {*/
-/*    .loginPage {*/
-/*        text-align: left;*/
-/*        object-fit: contain;*/
-/*    }*/
-/*}*/
+    }
 
-/*.leftLoginPage {*/
-/*    background-color: #2874f0;*/
-/*    margin: 0;*/
-/*    !*padding: 3rem 2rem;*!*/
-/*    color: white;*/
-/*    !*border-radius: 5px;*!*/
-/*}*/
 
-/*.leftLoginPage > h2 {*/
-/*    font-size: 1.55rem;*/
-/*    font-weight: 500;*/
-/*    margin-bottom: 1rem;*/
-/*    !*padding: 50px 10px 0 30px;*!*/
-/*}*/
 
-/*.leftLoginPage > p {*/
-/*    font-weight: 500;*/
-/*    font-size: 1.2rem;*/
-/*    !*padding: 10px 0px 0px 30px;*!*/
-/*}*/
+}
 
-/*.leftLoginPage > img {*/
-/*    height: 200px;*/
-/*    object-fit: contain;*/
-/*    margin: 146px 0 0 0;*/
-/*}*/
+@media (max-width: 400px) {
+    .loginPage {
+        text-align: left;
+        object-fit: contain;
+    }
+}
 
-/*.rightLoginPage {*/
-/*    margin: 100px 30px;*/
-/*}*/
+.leftLoginPage {
+    background-color: #2874f0;
+    margin: 0;
+    /*padding: 3rem 2rem;*/
+    color: white;
+    /*border-radius: 5px;*/
+}
 
-/*.login-form-button {*/
-/*    margin: 15px;*/
-/*}*/
+.leftLoginPage > h2 {
+    font-size: 1.55rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    /*padding: 50px 10px 0 30px;*/
+}
 
-/*@media (max-width: 600px) {*/
-/*    .rightLoginPage {*/
-/*        margin: 30px 0;*/
-/*    }*/
+.leftLoginPage > p {
+    font-weight: 500;
+    font-size: 1.2rem;
+    /*padding: 10px 0px 0px 30px;*/
+}
 
-/*    .leftLoginPage > img {*/
-/*        margin: 30px 0;*/
-/*    }*/
-/*}*/
+.leftLoginPage > img {
+    height: 200px;
+    object-fit: contain;
+    margin: 146px 0 0 0;
+}
+
+.rightLoginPage {
+    margin: 100px 30px;
+}
+
+.login-form-button {
+    margin: 15px;
+}
+
+

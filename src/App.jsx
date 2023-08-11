@@ -18,7 +18,7 @@ const searchValue = (e) =>{
   setValue(e.target.value);
 }
 function handleCategory(cat){
-// console.log(e);
+console.log(cat);
 setCate(cat)
 }
 function handleHome(){
@@ -29,8 +29,8 @@ function handleHome(){
     <div >
       <Header searchValue={searchValue} handleHome={handleHome} />
      {!value && <HeaderImage  handleCategory={handleCategory}/>   }
-     <Mydata value={value} cate={cate} /> 
-     <Footer/>
+     <Mydata value={value} cate={cate} />
+     {/*<Footer/>*/}
 
       
      

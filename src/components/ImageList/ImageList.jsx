@@ -13,10 +13,23 @@ function ImageList({ category, photo, price, id, rating }) {
       {/* <Carousel autoplay> */}
       <Link id={id} className="image_details" to={`product/${id}`}> 
         <img src={photo} alt="" />
-        <p >Price: {price}</p>
-        <div><span className='ratings' style={{backgroundColor: rating>=3? '#388e3c': 'red' }}>{rating}<StarBorderIcon /></span></div>
-        <p >{category}</p>
-        <p style={{color:'green'}}>More Details...</p>
+        <div className="cardContent">
+        {/*<p className="price">Price: {price}</p>*/}
+        {/*<div><span className='ratings' style={{backgroundColor: rating>=3? '#388e3c': 'red' }}>{rating}<StarBorderIcon /></span></div>*/}
+          <div className="brand-size">
+            <strong className="str" style={{backgroundColor: rating>=3? '#388e3c': 'red'}}>{rating}</strong>
+            <StarBorderIcon />
+
+          </div>
+        <p>{category}</p>
+        {/*<p className="add" style={{color:'green'}}>More Details...</p>*/}
+          <div className="price-add">
+            <span>${price}</span>
+            <span>
+            <button>More</button>
+          </span>
+          </div>
+          </div>
       </Link>
       {/* </Carousel> */}
       

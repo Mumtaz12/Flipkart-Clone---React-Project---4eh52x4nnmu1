@@ -3,6 +3,7 @@ import "./imageList.css";
 import HeaderData from "../../HeaderData";
 function HeaderImage({ handleCategory }) {
   return (
+
     <div className="headerImage">
       {HeaderData.map((item) => (
         <div className="imageheader" onClick={()=>handleCategory(item.category)}>
