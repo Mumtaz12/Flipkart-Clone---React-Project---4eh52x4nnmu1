@@ -121,7 +121,7 @@ function ProductDetails() {
                             </div>
                         </div>
                         <div className='delivery'>
-                            <img height="160px" src="https://rukminim1.flixcart.com/lockin/774/185/images/CCO__PP_2019-07-14.png?q=50" alt="" />
+                            <img height="130px" src="https://rukminim1.flixcart.com/lockin/774/185/images/CCO__PP_2019-07-14.png?q=50" alt="" />
                         </div>
                         <div className='delivery'>
                             <div className="delivery_heading">

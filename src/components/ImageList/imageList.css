@@ -27,10 +27,11 @@
     font-weight: 600;
 
 }
-.mobile{
-    border-radius: 10px;
+.mobile .electronics{
+    /*border-radius: 10px;*/
     cursor: pointer;
 }
+
 
 /*.image_details:hover{*/
 

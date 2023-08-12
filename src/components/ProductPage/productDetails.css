@@ -4,7 +4,7 @@
     flex-wrap: wrap;
     justify-content: space-evenly;
     margin: 50px;
-    /*overflow-x: hidden;*/
+
 }
 
 .left__details {
@@ -20,20 +20,22 @@
 .offer__details  p {
     margin: 7px 0;
     font-weight: 500;
-    /*position: relative;*/
+    position: relative;
     display: block;
-    /*flex-wrap: wrap-reverse;*/
-    /*flex-direction: row-reverse;*/
+    flex-wrap: wrap-reverse;
+    flex-direction: row-reverse;
 }
 
 .right__details {
     flex-basis: 80%; /* Take full width on mobile */
     margin-top: 30px; /* Add some spacing between left and right details on mobile */
     display: flex;
-    justify-content: flex-start;
-    /*align-items: center;*/
-    flex-direction: column;
-    margin-bottom: 50px;
+    max-width: 760px;
+    overflow-x: hidden;
+    /*justify-content: flex-start;*/
+    /*!*align-items: center;*!*/
+    /*flex-direction: column;*/
+    /*margin-bottom: 50px;*/
 }
 
 .left__details > img {
@@ -60,9 +62,6 @@
 
 .add_and_buy {
     display: flex;
-    /*flex-wrap: wrap;*/
-    /*box-shadow: rgba(63, 23, 23, 0.26) 5px 10px 10px 3px, rgba(0,0,0,0.1) 5px 10px 8px 2px inset;*/
-    /*border-radius: 7px;*/
 
 }
 
@@ -87,7 +86,7 @@
     font-weight: 1000;
     color: rgb(12, 12, 127);
     font-size: 1.55rem;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .rating > .MuiSvgIcon-root {
@@ -131,21 +130,24 @@
 @media (min-width: 730px) {
     .productdetails {
         flex-wrap: nowrap;
+        flex-direction: row;
     }
 
     .left__details {
         flex-basis: 50%; /* Take half width on desktop */
+        flex-direction: column;
     }
 
     .right__details {
         flex-basis: 50%; /* Take half width on desktop */
         margin-top: 0; /* Reset margin on desktop */
+        flex-direction: column;
 
     }
-    /*.offer__details p{*/
-    /*    font-size: 0.7rem;*/
-    /*    line-height: 10px;*/
-    /*}*/
+    .offer__details p{
+        /*font-size: 0.7rem;*/
+        /*line-height: 10px;*/
+    }
 
 }
 
@@ -161,10 +163,10 @@
         padding: 10px; /* Increase padding for better readability */
     }
 
-    /*.rating {*/
-    /*    width: auto; !* Allow rating box to expand with content *!*/
-    /*    margin: 5px 0; !* Reduce margin for better spacing *!*/
-    /*}*/
+    .rating {
+        /*width: auto; !* Allow rating box to expand with content *!*/
+        /*margin: 5px 0; !* Reduce margin for better spacing *!*/
+    }
 
     .price {
         font-size: 24px; /* Adjust font size for mobile */
@@ -186,7 +188,7 @@
     }
 
     .offer__details  p {
-        /* Adjust margin or font size as needed for better readability */
+         /*Adjust margin or font size as needed for better readability*/
         width: auto;
 
     }
