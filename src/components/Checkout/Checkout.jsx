@@ -7,6 +7,7 @@ import Header from '../Header/Header';
 import { Link, useNavigate } from 'react-router-dom';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import Footer from "../Footer/Footer";
 
 function Checkout() {
     const navigate = useNavigate();
@@ -167,6 +168,7 @@ function Checkout() {
                 </div>
             </div>)
             }
+            <Footer/>
         </>
     )
 }

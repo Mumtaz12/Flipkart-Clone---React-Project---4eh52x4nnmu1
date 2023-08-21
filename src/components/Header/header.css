@@ -103,6 +103,28 @@
     margin: 0 20px
 }
 
+.wishlist {
+    background-color: #ff8800;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 50%; /* Make it a circle */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+}
+
+.wishlist:hover {
+    background-color: #ffaa33;
+}
+
+.heart-icon {
+    font-size: 1rem;
+}
+
 .header_fifth>p {
 
     color: white;

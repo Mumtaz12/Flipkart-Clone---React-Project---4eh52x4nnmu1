@@ -12,10 +12,17 @@ import './header.css'
 import LoginPage from '../LoginPage/LoginPage';
 import { Link, useNavigate } from 'react-router-dom'
 import { DetailContext } from '../../Router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 
 const Header = ({searchValue,handleHome}) => {
   const [openmodal, setOpenModal] = useState(false);
+  const [wishlistOpen, setWishlistOpen] = useState(false);
+
+    const toggleWishlist = () => {
+        setWishlistOpen(!wishlistOpen);
+    };
   const handleCapture = () => {
     setOpenModal(false);
   }
@@ -64,6 +71,10 @@ const Header = ({searchValue,handleHome}) => {
           </div>
         </Tippy>
       </div>
+        <Link to='/wishlist' className="wishlist">
+            <FontAwesomeIcon icon={faHeart} className="heart-icon" />
+        </Link>
+
       <div className="header_fourth">
         <Tippy content={<MoreT></MoreT>}
           interactive={true}

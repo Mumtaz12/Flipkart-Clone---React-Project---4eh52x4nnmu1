@@ -4,19 +4,24 @@ import App from './App'
 import Checkout from './components/Checkout/Checkout'
 import ProductDetails from './components/ProductPage/ProductDetails'
 import RegisterPage from './components/Register/RegisterPage'
+import WishlistPage from './components/Header/WishlistPage'
 
 export const DetailContext = createContext();
 
 function Router() {
  
   const[detail, setDetail] = useState([]);
+  const [wishlist, setWishlist] = useState([]); // Store wishlist items
+
   return (
     <>
     {/* <ProductDetails/> */}
-    <DetailContext.Provider value={{detail, setDetail}} >
+    <DetailContext.Provider value={{detail, setDetail ,wishlist ,setWishlist}} >
 
    <BrowserRouter>
+
    <Routes>
+       <Route path='/wishlist' element={<WishlistPage />} />
     <Route path='/' element={<App />}/>
     <Route path='/product/:idk' element={<ProductDetails />} />
     <Route path='/cart' element={<Checkout />} />

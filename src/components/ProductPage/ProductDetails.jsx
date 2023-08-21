@@ -9,6 +9,8 @@ import Header from '../Header/Header';
 import productData from "../../productData";
 import { DetailContext } from '../../Router';
 import { Details } from '@mui/icons-material';
+import Footer from "../Footer/Footer";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 
 function ProductDetails() {
@@ -16,6 +18,19 @@ function ProductDetails() {
     const { idk } = useParams();
     const url = `https://content.newtonschool.co/v1/pr/63b6c911af4f30335b4b3b89/products`;
     const [data, setData] = useState([]);
+    const [wishlist, setWishlist] = useState([]);
+    const [showPopup, setShowPopup] = useState(false);
+
+    // const addToWishlist = ({idk}) => {
+    //     if (!wishlist.includes(idk)) {
+    //         setWishlist([...wishlist, idk]);
+    //         setShowPopup(true); // Show the popup when item is added
+    //     }
+    // };
+
+    const closePopup = () => {
+        setShowPopup(false);
+    };
     const fetchUsers = async (url) => {
         try {
             const res = await fetch(url);
@@ -54,35 +69,60 @@ function ProductDetails() {
         navigate('/cart');
     }
     const handleCart = () => {
-        const vary = detail.filter((obj) => {
-            return obj.id == data[0].id;
-        })
-        if (vary.length == 0) {
-            data[0]['item'] = 1;
-          
-            setDetail([...detail, data[0]]);
-            
+        const vary = detail.find((obj) => obj.id === data[0].id);
+        if (!vary) {
+            const newItem = { ...data[0], item: 1 };
+            setDetail([...detail, newItem]);
         } else {
-            alert("You have already added this product in your cart!")
+            alert("You have already added this product in your cart!");
         }
-    }
+    };
+
+    const addToWishlist = () => {
+        const vary = wishlist.find((obj) => obj.id === data[0].id);
+        if (!vary) {
+            const newItem = { ...data[0], item: 1 };
+            setWishlist([...wishlist, newItem]);
+            setShowPopup(true);
+        } else {
+            alert("You have already added this product in your Wishlist!");
+        }
+    };
+
 
 
     const renderProduct = () => {
         if (data.length > 0) {
             return (
                 <div className='productdetails'>
+
                     <div className="left__details">
+
                         <img src={data[0].image} alt="" />
+
+
                         <div className='add_and_buy'>
+                            {/* Wishlist added popup */}
+                            {showPopup && (
+                                <div className="wishlist-popup">
+                                    Item added to wishlist!
+                                    <button onClick={closePopup}>Close</button>
+                                </div>
+                            )}
                             <button className='add_cart' onClick={handleCart} ><ShoppingCartIcon />ADD TO CART</button>
                             <button className='buy_now' onClick={handleBuy}><FlashOnIcon />BUY NOW</button>
+                            <FavoriteIcon
+                                className="wishlist-iconn"
+                                onClick={addToWishlist}
+                                // style={{ color: wishlist.includes(data[0].id) ? 'black' : 'red' }}
+                            />
                         </div>
                     </div>
                     <div className="right__details">
                         <h3>{data[0].title}</h3>
 
-                        <div className='rating' style={{backgroundColor: data[0].rating.rate>=3? '#388e3c': 'red' }}>{data[0].rating.rate}<StarBorderIcon /></div>
+                        <div className='rating' style={{backgroundColor: data[0].rating.rate>=3? '#388e3c': 'red' }}>{data[0].rating.rate}<StarBorderIcon /> </div>
+
                         <h2 style={{ color: "#388e3c" }}>Special offers</h2>
                         <div className='price'>₹ {data[0].price}</div>
                         <div className='offer__details'>
@@ -142,7 +182,7 @@ function ProductDetails() {
         <div>
             <Header />
             {renderProduct()}
-
+            <Footer/>
         </div>
 
     )

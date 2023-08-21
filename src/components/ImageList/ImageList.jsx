@@ -1,3 +1,4 @@
+import FavoriteIcon from '@mui/icons-material/Favorite'; // Import heart icon
 import React, { useState } from 'react'
 import './imageList.css'
 import StarBorderIcon from '@mui/icons-material/StarBorder';
@@ -5,24 +6,39 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import {Link} from 'react-router-dom'
 
 function ImageList({ category, photo, price, id, rating }) {
+  const [wishlist, setWishlist] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
+
+  const addToWishlist = () => {
+    if (!wishlist.some(item => item.id === id)) {
+      setWishlist([...wishlist, { id, category, photo, price, rating }]);
+      setShowPopup(true);
+    }
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
+  };
 
   return (
     <>
-     
-    
+
+
       {/* <Carousel autoplay> */}
-      <Link id={id} className="image_details" to={`product/${id}`}> 
+      <Link id={id} className="image_details" to={`product/${id}`}>
+        <FavoriteIcon
+            className="wishlist-icon"
+            onClick={addToWishlist}
+            style={{ color: wishlist.some(item => item.id === id) ? 'red' : 'black' }}
+        />
         <img src={photo} alt="" />
         <div className="cardContent">
-        {/*<p className="price">Price: {price}</p>*/}
-        {/*<div><span className='ratings' style={{backgroundColor: rating>=3? '#388e3c': 'red' }}>{rating}<StarBorderIcon /></span></div>*/}
           <div className="brand-size">
             <strong className="str" style={{backgroundColor: rating>=3? '#388e3c': 'red'}}>{rating}</strong>
             <StarBorderIcon />
 
           </div>
         <p>{category}</p>
-        {/*<p className="add" style={{color:'green'}}>More Details...</p>*/}
           <div className="price-add">
             <span>${price}</span>
             <span>
@@ -31,9 +47,16 @@ function ImageList({ category, photo, price, id, rating }) {
           </div>
           </div>
       </Link>
+      {/* Wishlist added popup */}
+      {showPopup && (
+          <div className="wishlist-popup">
+            Item added to wishlist!
+            <button onClick={closePopup}>Close</button>
+          </div>
+      )}
       {/* </Carousel> */}
-      
-    
+
+
     </>
   )
 }
