@@ -190,7 +190,7 @@ const WishlistPage = () => {
 
                 <div className='emptymain'>
                     <div className='empty2'>
-                        <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt="" />
+                        {/*<img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt="" />*/}
                         <div className='empty3'>Your Wishlist is empty!</div>
                         <div className='empty4'>Add items to it now.</div>
                         <Link to={"/"}>
