@@ -25,12 +25,20 @@ function ImageList({ category, photo, price, id, rating }) {
 
 
       {/* <Carousel autoplay> */}
-      <Link id={id} className="image_details" to={`product/${id}`}>
-        <FavoriteIcon
+       <FavoriteIcon
             className="wishlist-icon"
             onClick={addToWishlist}
             style={{ color: wishlist.some(item => item.id === id) ? 'red' : 'black' }}
         />
+       {/* Wishlist added popup */}
+      {showPopup && (
+          <div className="wishlist-popup">
+            Item added to wishlist!
+            <button onClick={closePopup}>Close</button>
+          </div>
+      )}
+      <Link id={id} className="image_details" to={`product/${id}`}>
+       
         <img src={photo} alt="" />
         <div className="cardContent">
           <div className="brand-size">
@@ -47,13 +55,7 @@ function ImageList({ category, photo, price, id, rating }) {
           </div>
           </div>
       </Link>
-      {/* Wishlist added popup */}
-      {showPopup && (
-          <div className="wishlist-popup">
-            Item added to wishlist!
-            <button onClick={closePopup}>Close</button>
-          </div>
-      )}
+     
       {/* </Carousel> */}
 
 
