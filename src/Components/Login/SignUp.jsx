@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { Login } from './Login'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { Alert, AlertIcon, AlertTitle, position } from '@chakra-ui/react'
+import {Alert, AlertIcon, AlertTitle, position, useMediaQuery} from '@chakra-ui/react'
 import {
   Modal,
   ModalOverlay,
@@ -115,6 +115,7 @@ export function Signup() {
     setIsSubmit(true)
     setInputValues(initialvalues)
   }
+  const [isMobileView] = useMediaQuery('(max-width: 720px)');
 
   return (
     <>
@@ -163,7 +164,7 @@ export function Signup() {
                   <br /> address to get started
                 </Text>
                 <Image
-                  marginTop="10rem"
+                    marginTop={isMobileView ? '6rem' : '10rem'}
                   src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/login_img_c4a81e.png"
                   alt="image"
                 />
@@ -231,7 +232,7 @@ export function Signup() {
                     color="#2f74f0"
                     bg="#fff"
                     width="19.7rem"
-                    _hover={'#fff'}
+
                   >
                     Existing User?{<Login />}
                   </Button>

@@ -1,0 +1,8 @@
+.valid-input {
+    border: 2px solid green; /* Change to your desired valid field style */
+}
+
+/* Invalid input field style */
+.invalid-input {
+    border: 2px solid red; /* Change to your desired invalid field style */
+}

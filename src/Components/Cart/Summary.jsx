@@ -82,23 +82,24 @@ function Summary(){
         <Box w='100%'  pt='20' bg='#f1f3f6' >
 
             <HStack
-             w="90%"
+             w="100%"
             //  h='50vh'
             //  bg="pink"
              margin="auto"
              display="flex"
              alignItems="start"
-             justifyContent='space-between' 
+             justifyContent='space-between'
+             flexWrap='wrap'
             >
              {/*LEFT BOX  */}
              <Box 
-             w='69%'
+             w={['100%','69%']}
             //  h='40vh'
              bg='#f1f3f6'
              >
                  {/* Left top 1 */}
-                 <Box 
-                 w='100%'
+                 <Box
+                     w='100%'
                  h='10vh'
                  bg='white'
                  display='flex'
@@ -119,18 +120,19 @@ function Summary(){
                     
                  </Box>
                  {/* Left top 1 */}
-                 <Box 
-                 w='100%'
-                 h='10vh'
-                 bg='white'
-                 display='flex'
-                 justifyContent='space-between'
-                 alignItems='center'
-                 shadow='md'
-                 mt='4'
+                 <Box
+                     w="100%"
+                     bg="white"
+                     h={['15vh','10vh']}
+                     mt="5"
+                     display="flex"
+                     justifyContent="space-between"
+                     alignItems="start"
+                     shadow="md"
+                     flexDirection={["column", "row"]}
                  >
                     <Box>
-                    <Box ml='6' display='flex' alignItems='center' >
+                    <Box ml='6' display='flex'  alignItems='left'  >
                         <Box bg='#f1f3f6' pl='2' pr='2' color='blue' mr='4' borderRadius='2' > 2</Box>
                         <Text fontWeight='500' color='grey' >DELIVERY ADDRESS</Text> 
                         <CheckIcon ml='3' color='blue.600' />
@@ -144,8 +146,8 @@ function Summary(){
                     </Box>
                     
                     </Box>
-                    <Box>
-                        <Button mr='6' colorScheme='blue' variant='outline' borderRadius='0' border='1px solid blue' > 
+                    <Box  >
+                        <Button  mt="5" mr='6' colorScheme='blue' variant='outline' borderRadius='0' border='1px solid blue' >
                         <Link to='/delivery' >CHANGE</Link>
                         </Button>
                     </Box>
@@ -185,14 +187,16 @@ function Summary(){
                   key={data.id}
                   display="flex"
                   justifyContent="start"
-                  w="700px"
+                  flexDirection={["column", "row"]}
+                  // w="100%"
                   m=""
                   p="5"
                   borderBottom='1px solid grey'
                  
                 >
-                  <Box display="flex" w="200px" h="150px"  alignItems={'center'} justifyContent={"center"}>
-                    <Image src={data.image} mw="130px" maxHeight="140px" />
+                  <Box display="flex"  mb={["4", "0"]}  alignItems={'center'} justifyContent={"center"}>
+                    <Image src={data.image} mw="130px" // Set max width for the image
+                           maxHeight={["140px", "150px"]} />
                     {/* <ButtonGroup
                       display="flex"
                       justifyContent="flex-start"
@@ -213,19 +217,19 @@ function Summary(){
                     </ButtonGroup> */}
                   </Box>
                           {/* <hr/> */}
-                  <Box w="600px" ml="10">
+                  <Box w="100%" ml={["0","10"]}>
                     <Text
-                      fontSize="17px"
+                        fontSize={["14px", "17px"]}
                       fontWeight="500"
                       display="flex"
                       justifyContent="start"
-                      mt="3"
-                      variant="list"
+                        mt={["3", "0"]}
+                        variant="list"
                     >
                       {data.description}
                     </Text>
                     <Text
-                      fontSize="17px"
+                        fontSize={["14px", "17px"]}
                       fontWeight="400"
                       display="flex"
                       mt="1"
@@ -236,7 +240,7 @@ function Summary(){
                     </Text>
                     <Box display="flex" alignItems="center" mt="1">
                       <Text
-                        fontSize="16px"
+                          fontSize={["12px", "16px"]}
                         fontWeight="400"
                         display="flex"
                         color="grey"
@@ -248,18 +252,18 @@ function Summary(){
                         src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/fa_62673a.png"
                         ml="4"
                         alt="assured"
-                        w="14"
-                        h="5"
+                        w="12"
+                        h="4"
                       />
                     </Box>
                     <Box display="flex" alignItems="center" mt="5">
                       <Text
                         color="grey"
-                        fontSize="18px"
                         fontWeight="400"
                         display="flex"
                         as="del"
                         justifyContent="start"
+                        fontSize={["13px", "18px"]}
                       >
                         ₹{data.quantity * data.old_price}
                       </Text>
@@ -274,7 +278,7 @@ function Summary(){
                         ₹{data.quantity * data.new_price}
                       </Text>
                       <Text
-                        fontSize="16px"
+                          fontSize={["10px", "16px"]}
                         fontWeight="500"
                         display="flex"
                         color="green"
@@ -296,25 +300,41 @@ function Summary(){
 
 
 
-                <Box 
-                 w='100%'
-                 h='8vh'
-                 bg='white'
-                 mt='5'
-                 display='flex'
-                 justifyContent='space-between'
-                 alignItems='center'
-                 shadow='md'
+                 <Box
+                     w="100%"
+                     bg="white"
+                     mt="5"
+                     display="flex"
+                     justifyContent="space-between"
+                     alignItems="center"
+                     shadow="md"
+                     flexDirection={["column", "row"]}
                  >
-                    <Box ml='6' display='flex' alignItems='center' >
-                        {/* <Box bg='#f1f3f6' pl='2' pr='2' color='blue' mr='4' borderRadius='2' >3</Box> */}
-                        <Text fontWeight='400' color='black' > Order Confirmation email will be sent to     </Text>
-                        <Text fontWeight='500' color='black' ml='2' > { globalAddress.Email }  </Text>
-                    </Box>
-                    <Button color='white' bg='#fb641b' mr='3' borderRadius='0' >
-                         <Link to='/payment' >CONTINUE</Link>
-                        </Button>
-                    {/* <Box>  </Box> */}
+                     <Box
+                         ml="6"
+                         display="flex"
+                         flexDirection={["column", "row"]} // Stack items vertically on mobile, horizontally on larger screens
+                         alignItems={["start", "center"]} // Align items to start on mobile, center on larger screens
+                         justifyContent={["start", "space-between"]} // Adjust alignment based on screen size
+                         fontSize={["13px", "16px"]}
+                         flex="1" // Allow the box to take up available space
+                     >
+                         <Text fontWeight="400" mb={["2", "0"]} color="black">
+                             Order Confirmation email will be sent to
+                         </Text>
+                         <Text fontWeight="500" color="black" ml={["0", "2"]} mt={["2", "0"]}>
+                             {globalAddress.Email}
+                         </Text>
+                     </Box>
+                     <Button
+                         color="white"
+                         bg="#fb641b"
+
+                     >
+                         <Link to="/payment" style={{ textDecoration: "none", color: "inherit" }}>
+                             CONTINUE
+                         </Link>
+                     </Button>
                  </Box>
                 <Box 
                  w='100%'
@@ -336,11 +356,12 @@ function Summary(){
              </Box>
 
              {/* Right BOX */}
-             <Box 
-             w='29.5%'
+             <Box
+                 w={['100%', '29.5%']}
              h='75vh'
-             bg="white" 
-             position="sticky"
+             bg="white"
+                 mt={['4', '0']} // Adjust spacing as needed
+                 position="relative"
              top="0"
              shadow='sm'
              >

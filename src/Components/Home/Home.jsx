@@ -15,26 +15,29 @@ import BannerOffer2 from './homeComponents/BannerOffer2'
 import BeforeFooter from './homeComponents/BeforeFooter'
 import { Box } from '@chakra-ui/react'
 import CategoryBarForMobile from './homeComponents/CategoryBarForMobile'
+import {ToastContainer} from "react-toastify";
 
 const Home = () => {
     
     return (
         <Box>
+
             <CategoryBar />
-            <FinalBanner />
+            {/*<FinalBanner />*/}
             <CategoryBarForMobile />
-            <OfferBanner />
-            <BannerOffer />
+            {/*<OfferBanner />*/}
+            {/*<BannerOffer />*/}
             <Fashion />
             <Bestselling />
             <Appliances />
-            <BannerOffer2 />
+            {/*<BannerOffer2 />*/}
             <TopOffers />
             <Electronics />
             <Groceries />
             <Mobile />
             <BeforeFooter />
             {/* <Footer /> */}
+            <ToastContainer />
         </Box>
     )
 }

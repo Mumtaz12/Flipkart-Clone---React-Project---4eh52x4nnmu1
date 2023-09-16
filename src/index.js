@@ -8,18 +8,20 @@ import CartContextProvider from './Components/Context/CartContext';
 import AuthContextProvider from './Components/Context/Authcontext';
 import { store } from './Redux/store';
 import { Provider } from "react-redux";
+import WishlistContextProvider from "./Components/Context/WishlistContext";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store} >
   <AuthContextProvider>
-  <CartContextProvider>
-  <ChakraProvider 
-  // theme={customTheme}
-  >
+    <CartContextProvider>
+    <WishlistContextProvider>
+  <ChakraProvider // theme={customTheme}
+       >
     <BrowserRouter>
       <App />
     </BrowserRouter>
   </ChakraProvider>
+    </WishlistContextProvider>
   </CartContextProvider>
   </AuthContextProvider>
   </Provider>

@@ -1,67 +1,59 @@
-import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Box, Button, ButtonGroup, HStack, Image, Input, PinInput, PinInputField, Radio, Spacer, Text, Textarea, Toast, useDisclosure, useToast } from "@chakra-ui/react";
+import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Box, Button, ButtonGroup, HStack, Image, Input, Radio, Spacer, Text, Toast, useDisclosure, useToast } from "@chakra-ui/react";
 import { AddIcon, CheckIcon, InfoIcon, InfoOutlineIcon, UnlockIcon } from '@chakra-ui/icons'
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../Context/CartContext";
 import { MdSecurity } from "react-icons/md";
 import { Link, Navigate } from "react-router-dom";
 
-
-
-
 function PaymentPage() {
-
-
-
+    const [selectedPayment, setSelectedPayment] = useState("");
+    const [expiryDate, setExpiryDate] = useState("");
     const { cartData } = useContext(CartContext);
-
     let sellingPrice = 0;
     let discount = 0;
     let totalAmount = 0;
+    const handleExpiryDate = (e) => {
+        // Remove any non-numeric characters from the input
+        const inputDate = e.target.value.replace(/\D/g, "");
+
+        // Format the input as "xx/xxxx"
+        if (inputDate.length >= 3) {
+            const formattedDate = `${inputDate.slice(0, 2)}/${inputDate.slice(2)}`;
+            setExpiryDate(formattedDate);
+        } else {
+            setExpiryDate(inputDate);
+        }
+    };
 
     cartData.map((data) => {
         sellingPrice += data.old_price * data.quantity;
         discount += data.discount;
         totalAmount += data.new_price * data.quantity;
-    })
+    });
+
     discount = Math.floor(((discount / cartData.length) * sellingPrice) / 100);
-    //   console.log(sellingPrice, "SP");
-    //   console.log(discount, "DIS");
-    //   console.log(totalAmount, "TOTAL");
-
-    //   console.log(cartData);
-
 
     const { globalAddress } = useContext(CartContext);
+    const [cardNumber, setCardNumber] = useState("");
+    const toast = useToast();
 
-
-
-    // const [cardNumberValidation, setCardNumberValidation] = useState(1);
-    const [cardNumber, setCardNumber] = useState(false);
-
-    let countCard = 0;
     const handelCardNumber = (e) => {
-        setCardNumber(false);
-        countCard++;
-        if (countCard == 16) {
-            setCardNumber(true);
-        }
-        // setCardNumberValidation(e.target.value);
+        // Remove any non-numeric characters from the input
+        const inputNumber = e.target.value.replace(/\D/g, "");
 
-        console.log(cardNumber);
-        // console.log(cardNumberValidation.length, 'len');
-        // console.log(cardNumberValidation);
+        // Use regex to insert a space every 4 digits
+        const formattedNumber = inputNumber.replace(/(\d{4})(?=\d)/g, "$1 ");
 
-    }
+        // Update the state with the formatted card number
+        setCardNumber(formattedNumber);
+    };
 
-    const toast = useToast()
-    const [openOtpBox, setOpenOtpBox] = useState(false)
-
+    const [openOtpBox, setOpenOtpBox] = useState(false);
 
     const handelForwardOtp = () => {
         setOpenOtpBox(true);
-        if (cardNumber) {
-            // return <Navigate to='/otp'/>
-            console.log("xyz");
+        if (cardNumber.length === 19) {
+            console.log("Proceed to OTP");
         } else {
             toast({
                 position: 'top',
@@ -71,12 +63,13 @@ function PaymentPage() {
                         <Text ml='2' fontWeight={'bold'} color='white'  >Please Fill All the Details Correctly</Text>
                     </Box>
                 ),
-            })
+            });
         }
-    }
+    };
 
-
-    // console.log(globalAddress, "GLOBAL");
+    const handlePaymentSelect = (value) => {
+        setSelectedPayment(value);
+    };
 
     if (cartData.length === 0) {
         return <Navigate to='/cart' />
@@ -88,18 +81,18 @@ function PaymentPage() {
         <Box w='100%' pt='20' bg='#f1f3f6' >
 
             <HStack
-                w="82%"
+                w="100%"
                 //  h='50vh'
                 //  bg="pink"
                 margin="auto"
                 display="flex"
                 alignItems="start"
                 justifyContent='space-between'
+                flexWrap='wrap'
             >
                 {/*LEFT BOX  */}
                 <Box
-                    w='69%'
-                    //  h='40vh'
+                    w={['100%','69%']}
                     bg='#f1f3f6'
                 >
                     {/* Left top 1 */}
@@ -136,7 +129,7 @@ function PaymentPage() {
                         mt='4'
                     >
                         <Box>
-                            <Box ml='6' display='flex' alignItems='center' >
+                            <Box  >
                                 <Box bg='#f1f3f6' pl='2' pr='2' color='blue' mr='4' borderRadius='2' > 2</Box>
                                 <Text fontWeight='500' color='grey' >DELIVERY ADDRESS</Text>
                                 <CheckIcon ml='3' color='blue.600' />
@@ -150,7 +143,7 @@ function PaymentPage() {
                             </Box>
 
                         </Box>
-                        <Box>
+                        <Box >
                             <Button mr='6' colorScheme='blue' variant='outline' borderRadius='0' border='1px solid blue' >
                                 <Link to='/delivery' >CHANGE</Link>
                             </Button>
@@ -217,7 +210,9 @@ function PaymentPage() {
                     <Box bg='white' w='100%' display='block' borderBottom='1px solid #f2f2f2'  >
 
                         <Box display='flex' p='5' alignItems='center' >
-                            <Radio value='0' ></Radio>
+                            <Radio value="UPI"
+                                   isChecked={selectedPayment === "UPI"}
+                                   onChange={() => handlePaymentSelect("UPI")}></Radio>
                             <Image src='https://static-assets-web.flixcart.com/fk-p-linchpin-web/batman-returns/logos/UPI.gif' w='30px' h='30px' ml='5' />
                             <Box display='grid' justifyContent='start' textAlign='start' alignItems='start' >
                                 <Text ml='6' >UPI</Text>
@@ -233,7 +228,9 @@ function PaymentPage() {
                     <Box bg='white' w='100%' display='block' borderBottom='1px solid #f2f2f2'  >
 
                         <Box display='flex' p='5' alignItems='center' >
-                            <Radio value='0' ></Radio>
+                            <Radio  value="Wallets"
+                                   isChecked={selectedPayment === "Wallets"}
+                                   onChange={() => handlePaymentSelect("Wallets")}></Radio>
                             <Image src='https://static-assets-web.flixcart.com/fk-p-linchpin-web/batman-returns/logos/UPI.gif' w='30px' h='30px' ml='5' />
                             <Box display='grid' justifyContent='start' textAlign='start' alignItems='start' >
                                 <Text ml='6' >Wallets</Text>
@@ -249,45 +246,44 @@ function PaymentPage() {
 
 
                     <Box bg='#f2fdff' w='100%' display='block' borderBottom='1px solid #f2f2f2'  >
-
                         <Box display='flex' p='5' alignItems='center' >
-                            <Radio value='1' ></Radio>
+                            <Radio
+                                value="CreditDebit"
+                                isChecked={selectedPayment === "CreditDebit"}
+                                onChange={() => handlePaymentSelect("CreditDebit")}
+                            ></Radio>
                             <Text ml='6' >Credit / Debit / ATM Card</Text>
-                            {/* <Image src='https://static-assets-web.flixcart.com/fk-p-linchpin-web/batman-returns/logos/UPI.gif' w='30px' h='30px' ml='5' /> */}
-
                         </Box>
                         <Box display='grid' justifyContent='start' textAlign='start' alignItems='start' >
-                            <Input ml='16' bg='white' w='60%' borderRadius='0'  focusBorderColor={cardNumber ? 'lime' : 'red.300'} disabled={cardNumber} onKeyUp={handelCardNumber} placeholder="Enter Card Number" />
+                            <Input
+                                type="text"
+                                maxLength="19"
+                                value={cardNumber}
+                                onChange={handelCardNumber}
+                                bg='white'
+                                w='60%'
+                                ml='16'
+                                borderRadius='0'
+                                focusBorderColor={cardNumber.length === 19 ? 'lime' : 'red.300'}
+                                placeholder="Enter Card Number"
+                            />
                             <Box display='flex' w='100%' mt='2'>
-                                <Input ml='16' bg='white' w='40%' type={'month'} placeholder='none' borderRadius='0' />
-                                <Input ml='2'   bg='white' w='30%' maxLength={'3'}  placeholder="CVV" borderRadius='0' /> 
-                                
+                                <Input ml='16'
+                                       bg='white'
+                                       w='40%'
+                                       type='text'
+                                       value={expiryDate}
+                                       onChange={handleExpiryDate}
+                                       maxLength='7' // Limit to "xx/xxxx" format
+                                       placeholder='MM/YYYY'
+                                       borderRadius='0'/>
+                                <Input type="text" ml='2' pattern="[0-9]*"  bg='white' w='30%' maxLength='3' placeholder="CVV" borderRadius='0' />
                             </Box>
-                            {/* {
-                                openOtpBox?
-                                <HStack mt='0'   >
-                                    <PinInput placeholder="-"  >
-                                        <PinInputField  />
-                                        <PinInputField />
-                                        <PinInputField />
-                                        <PinInputField />
-                                    </PinInput>
-                                </HStack>
-                                :null
-                            } */}
-                            
                             <Button ml='16' color='white' mt='4' w='40%' onClick={handelForwardOtp} bg='#fb641b' borderRadius='0' >
-                                <Link 
-                                to={cardNumber ? '/otp' : ''} 
-                                  >
-                                    PAY ₹{totalAmount}
-                                </Link>
+                                <Link to={cardNumber.length === 19 ? '/otp' : ''} >PAY ₹{totalAmount}</Link>
                             </Button>
-
                             <Text ml='16' color='grey' mt='2' mb='4' >Add and secure your card as per RBI guidelines</Text>
-
                         </Box>
-
                     </Box>
 
 
@@ -295,7 +291,9 @@ function PaymentPage() {
                     <Box bg='white' w='100%' display='block' borderBottom='1px solid #f2f2f2'  >
 
                         <Box display='flex' p='5' alignItems='center' >
-                            <Radio value='0' ></Radio>
+                            <Radio value='NET banking'
+                                   isChecked={selectedPayment === "NET banking"}
+                                   onChange={() => handlePaymentSelect("NET BANKING")}></Radio>
                             < Text ml='6'>Net Banking</Text>
                         </Box>
                     </Box>
@@ -303,7 +301,9 @@ function PaymentPage() {
                     <Box bg='white' w='100%' display='block' borderBottom='1px solid #f2f2f2'  >
 
                         <Box display='flex' p='5' alignItems='center' >
-                            <Radio value='0' ></Radio>
+                            <Radio  value="EMI"
+                                   isChecked={selectedPayment === "EMI"}
+                                   onChange={() => handlePaymentSelect("EMI")} ></Radio>
                             < Text ml='6'>EMI (Easy Installments)</Text>
                         </Box>
                     </Box>
@@ -311,8 +311,13 @@ function PaymentPage() {
                     <Box bg='white' w='100%' display='block' borderBottom='1px solid #f2f2f2'  >
 
                         <Box display='flex' p='5' alignItems='center' >
-                            <Radio value='0' ></Radio>
+                            <Radio value='COD'
+                                   isChecked={selectedPayment === "COD"}
+                                   onChange={() => handlePaymentSelect("COD")}></Radio>
                             < Text ml='6'>Cash on Delivery</Text>
+                            <Button ml='16' color='white' mt='4' w='40%' onClick={handelForwardOtp} bg='#fb641b' borderRadius='0' >
+                                <Link to={'/otp'} >SUBMIT</Link>
+                            </Button>
                         </Box>
                     </Box>
 
@@ -343,10 +348,10 @@ function PaymentPage() {
 
                 {/* Right BOX */}
                 <Box
-                    w='29.5%'
+                    w={['100%','29.5%']}
                     h='85vh'
                     bg="white"
-                    position="sticky"
+                    position="relative"
                     top="0"
                     shadow='sm'
                 >

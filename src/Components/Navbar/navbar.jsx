@@ -34,13 +34,14 @@ import icon15 from "./Icon/icon15.png";
 import { Flex, Box, Center, Image, Spacer, InputGroup, Input, InputLeftElement, Icon } from "@chakra-ui/react";
 import { HamburgerIcon, SearchIcon } from "@chakra-ui/icons"
 import { BsFillFilePlusFill, BsFillCreditCard2BackFill, BsBellFill, BsQuestionSquareFill, BsMic } from "react-icons/bs";
-import {FaMoon, FaShoppingCart, FaSun, FaUser} from "react-icons/fa";
+import {FaMoon,FaShoppingCart, FaSun, FaUser} from "react-icons/fa";
 import { IoSearchSharp } from "react-icons/io5";
 import { RiInboxUnarchiveFill, RiCoupon3Fill } from "react-icons/ri"
 import { AiFillHeart } from "react-icons/ai"
 import { BiTrendingUp } from "react-icons/bi"
 import { HiDownload } from "react-icons/hi"
 import { useDisclosure } from '@chakra-ui/react';
+import { FaHeart } from 'react-icons/fa';
 
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import React, { useContext, useEffect, useRef, useState } from "react";
@@ -57,11 +58,15 @@ import { Signup } from "../Login/SignUp";
 import { Authcontext } from "../Context/Authcontext";
 import { IoMdPower } from "react-icons/io";
 import { CartContext } from "../Context/CartContext";
+import  {WishlistContext} from "../Context/WishlistContext";
+import {faHeart} from "@fortawesome/free-solid-svg-icons";
 
 
 const Navbar = () => {
   const {cartData} = useContext(CartContext);
+  const {wishlistData}=useContext(WishlistContext);
   console.log(cartData, " cartData ");
+  console.log(wishlistData, " wishlist data");
 
   const {correct, setCorrect} = useContext(Authcontext)
   const { colorMode, toggleColorMode } = useColorMode();
@@ -283,12 +288,22 @@ const Navbar = () => {
                   </Center>
                 </Flex>
                 }
-                <hr margin="0px" />
-                <Flex cursor={'pointer'} h="49px" fontSize='14px' className="pop1">
-                  <Center ml='10px'><HiUserCircle color="#2874f0" size="18px" /></Center> <Center ml='16px'>My Profile</Center>
-                </Flex>
+                <hr margin="0px" /> {/* My Profile Link */}
+                <Link to="/my-profile">
+                  <Flex cursor={'pointer'} h="49px" fontSize='14px' className="pop1">
+                    <Center ml='10px'><HiUserCircle color="#2874f0" size="18px" /></Center>
+                    <Center ml='16px'>My Profile</Center>
+                  </Flex>
+                </Link>
                 <hr />
-                <Flex cursor={'pointer'} className="pop1" h='49px' fontSize='14px'><Center ml='10px'><Image src={vikas} alt="vikas" /></Center> <Center ml='16px'>Flipkart Plus Zone</Center></Flex>
+
+                {/* Flipkart Plus Zone Link */}
+                <Link to="/flipkart-plus-zone">
+                  <Flex cursor={'pointer'} className="pop1" h='49px' fontSize='14px'>
+                    <Center ml='10px'><Image src={vikas} alt="vikas" /></Center>
+                    <Center ml='16px'>Flipkart Plus Zone</Center>
+                  </Flex>
+                </Link>
                 <hr />
                 {/* orderpage */}
                 <NavLink to='/orderpage'>
@@ -302,10 +317,33 @@ const Navbar = () => {
                     </Flex>
                 </NavLink>
                   <hr />
-                <Flex cursor={'pointer'}  h="49px" fontSize='14px' className="pop1"> <Center ml='10px'><AiFillHeart color="#2874f0" size="18px" /></Center> <Center ml='16px'> Wishlist</Center></Flex><hr />
-                <Flex cursor={'pointer'}  h="49px" fontSize='14px' className="pop1">  <Center ml='10px'><RiCoupon3Fill color="#2874f0" size="18px" /></Center><Center ml='16px'>Rewards</Center></Flex><hr />
-                <Flex cursor={'pointer'}  h="49px" fontSize='14px' className="pop1"> <Center ml='10px'><BsFillCreditCard2BackFill color="#2874f0" size="18px" /></Center> <Center ml='16px'>Gift cards</Center></Flex><hr />
-                {
+                  {/* Wishlist Link */}
+                  <Link to="/wishlist">
+                    <Flex cursor={'pointer'}  h="49px" fontSize='14px' className="pop1">
+                      <Center ml='10px'><AiFillHeart color="#2874f0" size="18px" /></Center>
+                      <Center ml='16px'>Wishlist</Center>
+                    </Flex>
+                  </Link>
+                  <hr />
+
+                  {/* Rewards Link */}
+                  <Link to="/rewards">
+                    <Flex cursor={'pointer'}  h="49px" fontSize='14px' className="pop1">
+                      <Center ml='10px'><RiCoupon3Fill color="#2874f0" size="18px" /></Center>
+                      <Center ml='16px'>Rewards</Center>
+                    </Flex>
+                  </Link>
+                  <hr />
+
+                  {/* Gift Cards Link */}
+                  <Link to="/gift-cards">
+                    <Flex cursor={'pointer'}  h="49px" fontSize='14px' className="pop1">
+                      <Center ml='10px'><BsFillCreditCard2BackFill color="#2874f0" size="18px" /></Center>
+                      <Center ml='16px'>Gift cards</Center>
+                    </Flex>
+                  </Link>
+                  <hr />
+                 {
                   correct?
                   <Flex onClick={handleLogout} 
                   cursor={'pointer'} h="49px" fontSize='14px' className="pop1"> 
@@ -322,16 +360,28 @@ const Navbar = () => {
           </Popover>
 
           {/* {=============login end====================} */}
-          <Box
-            fontSize="16px"
-            textAlign="center"
-            w="14%"
-            color="white"
-            fontWeight="600"
-            cursor={'pointer'}
-          >
-            Become a Seller
-          </Box>
+          <NavLink to='./wishlist' >
+            <Flex align={'center'} justify='' cursor={'pointer'}>
+              {/*<Icon as={faHeart} w={5} h={5} color="white" ml="2%" mr="-5px" />*/}
+              {
+                wishlistData.length>0?<Flex
+                    ml='-8px' mt='-25px' zIndex={5} bg={'#ff6161'} fontSize='12px' p='6px'
+                    border={'1px solid #fff'}
+                    borderRadius={'40%'} w='18px' h='18px'
+                    align={'center'} justify='center' color='#fff'
+                >{wishlistData.length}</Flex>:""
+              }
+              <Box
+                  fontSize="17px"
+                  ml="10px"
+                  textAlign="center"
+                  color="white"
+                  fontWeight="600"
+              >
+                Wishlist
+              </Box>
+            </Flex>
+          </NavLink>
 
           {/* ==================================more============= */}
           <Popover trigger="hover" >
@@ -362,11 +412,41 @@ const Navbar = () => {
               <PopoverArrow bg="white" />
 
               <PopoverBody color="black" className='shade'>
-                <Flex h="49px" fontSize='14px' className="pop1"  > <Center ml='10px'><BsBellFill color="#2874f0" size="18px" /></Center> <Center ml='16px'>Notification Prefernces</Center></Flex> <hr />
-                <Flex h="49px" fontSize='14px' className="pop1"> <Center ml='10px'><BsQuestionSquareFill color="#2874f0" size="18px" /></Center> <Center ml='16px'>24x7 Customer care</Center></Flex> <hr />
-                <Flex h="49px" fontSize='14px' className="pop1">  <Center ml='10px'><BiTrendingUp color="#2874f0" size="18px" /></Center><Center ml='16px'>Advertize</Center></Flex><hr />
-                <Flex h="49px" fontSize='14px' className="pop1"> <Center ml='10px'><HiDownload color="#2874f0" size="18px" /></Center> <Center ml='16px'>Download app</Center></Flex>
-              </PopoverBody>
+                  {/* Notification Preferences Link */}
+                  <Link to="/notification-preferences">
+                    <Flex h="49px" fontSize='14px' className="pop1">
+                      <Center ml='10px'><BsBellFill color="#2874f0" size="18px" /></Center>
+                      <Center ml='16px'>Notification Preferences</Center>
+                    </Flex>
+                  </Link>
+                  <hr />
+
+                  {/* 24x7 Customer Care Link */}
+                  <Link to="/customer-care">
+                    <Flex h="49px" fontSize='14px' className="pop1">
+                      <Center ml='10px'><BsQuestionSquareFill color="#2874f0" size="18px" /></Center>
+                      <Center ml='16px'>24x7 Customer Care</Center>
+                    </Flex>
+                  </Link>
+                  <hr />
+
+                  {/* Advertise Link */}
+                  <Link to="/advertise">
+                    <Flex h="49px" fontSize='14px' className="pop1">
+                      <Center ml='10px'><BiTrendingUp color="#2874f0" size="18px" /></Center>
+                      <Center ml='16px'>Advertise</Center>
+                    </Flex>
+                  </Link>
+                  <hr />
+
+                  {/* Download App Link */}
+                  <Link to="/download-app">
+                    <Flex h="49px" fontSize='14px' className="pop1">
+                      <Center ml='10px'><HiDownload color="#2874f0" size="18px" /></Center>
+                      <Center ml='16px'>Download app</Center>
+                    </Flex>
+                  </Link>
+                </PopoverBody>
             </PopoverContent>
           </Popover>
 
@@ -427,27 +507,214 @@ const Navbar = () => {
           <DrawerOverlay />
           <DrawerContent
             className="drawercontent">
+            <DrawerHeader bg='#2874f0' color='white' h='40px' className="head">
+              {correct ? (
+                  <Center>
+                    {/* Show the user's name when logged in */}
+                    <FaUser pr='10px' fontSize='15px' /> &nbsp; {"Hello Customer"} {/* Replace userName with the actual user's name */}
+                  </Center>
+              ) : (
+                  <Center>
+                    {/* Show "Login & Signup" when not logged in */}
+                    <Link to={'./login'} style={{ color: 'white', textDecoration: 'none' }}>
+                      Login & Signup
+                    </Link>
+                  </Center>
+              )}
+              <Center>
+                <Image src={icon15} w='20px' h='20px' />
+              </Center>
+            </DrawerHeader>
 
-            <DrawerHeader bg='#2874f0' color='white' h='40px' className="head"> <Center><FaUser pr='10px' fontSize='15px' /> &nbsp; Login & Signup</Center> <Center><Image src={icon15} w='20px' h='20px' /></Center></DrawerHeader>
+            <DrawerBody ml='-5px' onClick={onClose}>
+              <NavLink to='/super-coin-zone'>
+                <Flex h="38px" fontSize='14px'>
+                  <Center>
+                    <Image src={coin2} alt="c" w='15px' />
+                  </Center>
+                  <Center className="drawer" ml='16px'>
+                    SuperCoin Zone
+                  </Center>
+                </Flex>
+              </NavLink>
+              <NavLink to='./flipkart-plus-zone'>
+                <Flex h="38px" fontSize='14px'>
+                  <Center>
+                    <Image src={icon3} w="15px" />
+                  </Center>
+                  <Center className="drawer" ml='16px'>
+                    Flipkart Plus Zone
+                  </Center>
+                </Flex>
+              </NavLink>
+              <hr />
+              <NavLink to='./products/:category_name'>
+                <Flex h="38px" fontSize='14px'>
+                  <Center>
+                    <Image src={url1} w='15px' />
+                  </Center>
+                  <Center className="drawer" ml='16px'>
+                    All Categories
+                  </Center>
+                </Flex>
+              </NavLink>
+              <NavLink to='/trending-stores'>
+                <Flex h="38px" fontSize='14px'>
+                  <Center>
+                    <Image src={icon4} w='15px' />
+                  </Center>
+                  <Center className="drawer" ml='16px'>
+                    Trending Stores
+                  </Center>
+                </Flex>
+              </NavLink>
 
-            <DrawerBody ml='-5px'>
-              <Flex h="38px" fontSize='14px'   > <Center ><Image src={coin2} alt="c" w='15px' /></Center> <Center className="drawer" ml='16px'>SuperCoin Zone</Center></Flex>
-              <Flex h="38px" fontSize='14px'   > <Center ><Image src={icon3} w="15px" /></Center> <Center className="drawer" ml='16px'>Flipkart Plus Zone</Center></Flex><hr />
-              <Flex h="38px" fontSize='14px' > <Center ><Image src={url1} w='15px' /></Center> <Center className="drawer" ml='16px'> All Categories</Center></Flex>
-              <Flex h="38px" fontSize='14px'>  <Center ><Image src={icon4} w='15px' /></Center><Center className="drawer" ml='16px'>Trending Stores</Center></Flex>
-              <Flex h="38px" fontSize='14px' > <Center ><Image src={icon5} w='15px' /></Center> <Center className="drawer" ml='16px'>More on Flipkart</Center></Flex><hr />
-              <Flex h="38px" fontSize='14px'   > <Center ><Image src={icon6} w='15px' /></Center> <Center className="drawer" ml='16px'>Choose Language</Center></Flex><hr />
-              <Flex h="38px" fontSize='14px' > <Center ><Image src={icon7} w='15px' /></Center> <Center className="drawer" ml='16px'> Offer Zone</Center></Flex>
-              <Flex h="38px" fontSize='14px'>  <Center ><Image src={icon8} w='15px' /></Center><Center className="drawer" ml='16px'>Sell on Flipkart</Center></Flex>
-              <Flex h="38px" fontSize='14px' > <Center ><Image src={icon9} w='15px' /></Center> <Center className="drawer" ml='16px'>My Orders</Center></Flex>
-              <Flex h="38px" fontSize='14px'   > <Center ><Image src={icon10} w='15px' /></Center> <Center className="drawer" ml='16px'>Coupons</Center></Flex>
-              <Flex h="38px" fontSize='14px' > <Center ><Image src={icon11} w='15px' /></Center> <Center className="drawer" ml='16px'> My Cart</Center></Flex>
-              <Flex h="38px" fontSize='14px'>  <Center ><Image src={icon12} w='15px' /></Center><Center className="drawer" ml='16px'>My Wishlist</Center></Flex>
-              <Flex h="38px" fontSize='14px' > <Center ><Image src={icon13} w='15px' /></Center> <Center className="drawer" ml='16px'>My Account</Center></Flex>
-              <Flex h="38px" fontSize='14px' > <Center ><Image src={icon14} w='15px' /></Center> <Center className="drawer" ml='16px'>My Notification</Center></Flex><hr />
-              <Flex h="38px" fontSize='14px' > <Center className="drawer">Notification Preferences</Center></Flex>
-              <Flex h="38px" fontSize='14px' >  <Center className="drawer" >Help Center</Center></Flex>
-              <Flex h="38px" fontSize='14px' >  <Center className="drawer" >Legal</Center></Flex>
+              <NavLink to='/more-on-flipkart'>
+                <Flex h="38px" fontSize='14px'>
+                  <Center>
+                    <Image src={icon5} w='15px' />
+                  </Center>
+                  <Center className="drawer" ml='16px'>
+                    More on Flipkart
+                  </Center>
+                </Flex>
+              </NavLink>
+              <hr />
+
+              <NavLink to='/choose-language'>
+                <Flex h="38px" fontSize='14px'>
+                  <Center>
+                    <Image src={icon6} w='15px' />
+                  </Center>
+                  <Center className="drawer" ml='16px'>
+                    Choose Language
+                  </Center>
+                </Flex>
+              </NavLink>
+              <hr />
+
+              <NavLink to='./products/:category_name'>
+                <Flex h="38px" fontSize='14px'>
+                  <Center>
+                    <Image src={icon7} w='15px' />
+                  </Center>
+                  <Center className="drawer" ml='16px'>
+                    Offer Zone
+                  </Center>
+                </Flex>
+              </NavLink>
+
+              <NavLink to='/sell-on-flipkart'>
+                <Flex h="38px" fontSize='14px'>
+                  <Center>
+                    <Image src={icon8} w='15px' />
+                  </Center>
+                  <Center className="drawer" ml='16px'>
+                    Sell on Flipkart
+                  </Center>
+                </Flex>
+              </NavLink>
+
+              <NavLink to='/orderpage'>
+                <Flex h="38px" fontSize='14px'>
+                  <Center>
+                    <Image src={icon9} w='15px' />
+                  </Center>
+                  <Center className="drawer" ml='16px'>
+                    My Orders
+                  </Center>
+                </Flex>
+              </NavLink>
+
+              <NavLink to='/coupons'>
+                <Flex h="38px" fontSize='14px'>
+                  <Center>
+                    <Image src={icon10} w='15px' />
+                  </Center>
+                  <Center className="drawer" ml='16px'>
+                    Coupons
+                  </Center>
+                </Flex>
+              </NavLink>
+
+              <NavLink to='/cart'>
+                <Flex h="38px" fontSize='14px'>
+                  <Center>
+                    <Image src={icon11} w='15px' />
+                  </Center>
+                  <Center className="drawer" ml='16px'>
+                    My Cart
+                  </Center>
+                </Flex>
+              </NavLink>
+
+              <NavLink to='/wishlist'>
+                <Flex h="38px" fontSize='14px'>
+                  <Center>
+                    <Image src={icon12} w='15px' />
+                  </Center>
+                  <Center className="drawer" ml='16px'>
+                    My Wishlist
+                  </Center>
+                </Flex>
+              </NavLink>
+
+              <NavLink to='/my-profile'>
+                <Flex h="38px" fontSize='14px'>
+                  <Center>
+                    <Image src={icon13} w='15px' />
+                  </Center>
+                  <Center className="drawer" ml='16px'>
+                    My Account
+                  </Center>
+                </Flex>
+              </NavLink>
+
+              <NavLink to='/my-notifications'>
+                <Flex h="38px" fontSize='14px'>
+                  <Center>
+                    <Image src={icon14} w='15px' />
+                  </Center>
+                  <Center className="drawer" ml='16px'>
+                    My Notifications
+                  </Center>
+                </Flex>
+              </NavLink>
+              <hr />
+
+              <NavLink to='/notification-preferences'>
+                <Flex h="38px" fontSize='14px'>
+                  <Center className="drawer">
+                    Notification Preferences
+                  </Center>
+                </Flex>
+              </NavLink>
+
+              <Flex
+                  cursor='pointer'
+                  h="38px"
+                  fontSize='14px'
+                  onClick={() => {
+                    // Handle Help Center click
+                  }}
+              >
+                <Center className="drawer">
+                  Help Center
+                </Center>
+              </Flex>
+
+              <Flex
+                  cursor='pointer'
+                  h="38px"
+                  fontSize='14px'
+                  onClick={() => {
+                    // Handle Legal click
+                  }}
+              >
+                <Center className="drawer">
+                  Legal
+                </Center>
+              </Flex>
             </DrawerBody>
           </DrawerContent>
         </Drawer>
@@ -540,11 +807,21 @@ const Navbar = () => {
                       </Flex>
                 }
                 <hr margin="0px" />
-                <Flex cursor={'pointer'} h="49px" fontSize='14px' className="pop1">
-                  <Center ml='10px'><HiUserCircle color="#2874f0" size="18px" /></Center> <Center ml='16px'>My Profile</Center>
-                </Flex>
+                <NavLink to="/my-profile">
+                  <Flex cursor={'pointer'} h="49px" fontSize='14px' className="pop1">
+                    <Center ml='10px'><HiUserCircle color="#2874f0" size="18px" /></Center>
+                    <Center ml='16px'>My Profile</Center>
+                  </Flex>
+                </NavLink>
                 <hr />
-                <Flex cursor={'pointer'} className="pop1" h='49px' fontSize='14px'><Center ml='10px'><Image src={vikas} alt="vikas" /></Center> <Center ml='16px'>Flipkart Plus Zone</Center></Flex>
+
+                {/* Flipkart Plus Zone Link */}
+                <NavLink to="/flipkart-plus-zone">
+                  <Flex cursor={'pointer'} className="pop1" h='49px' fontSize='14px'>
+                    <Center ml='10px'><Image src={vikas} alt="vikas" /></Center>
+                    <Center ml='16px'>Flipkart Plus Zone</Center>
+                  </Flex>
+                </NavLink>
                 <hr />
                 {/* orderpage */}
                 <NavLink to='/orderpage'>
@@ -558,9 +835,31 @@ const Navbar = () => {
                   </Flex>
                 </NavLink>
                 <hr />
-                <Flex cursor={'pointer'}  h="49px" fontSize='14px' className="pop1"> <Center ml='10px'><AiFillHeart color="#2874f0" size="18px" /></Center> <Center ml='16px'> Wishlist</Center></Flex><hr />
-                <Flex cursor={'pointer'}  h="49px" fontSize='14px' className="pop1">  <Center ml='10px'><RiCoupon3Fill color="#2874f0" size="18px" /></Center><Center ml='16px'>Rewards</Center></Flex><hr />
-                <Flex cursor={'pointer'}  h="49px" fontSize='14px' className="pop1"> <Center ml='10px'><BsFillCreditCard2BackFill color="#2874f0" size="18px" /></Center> <Center ml='16px'>Gift cards</Center></Flex><hr />
+                <NavLink to="/wishlist">
+                  <Flex cursor={'pointer'} h="49px" fontSize='14px' className="pop1">
+                    <Center ml='10px'><AiFillHeart color="#2874f0" size="18px" /></Center>
+                    <Center ml='16px'> Wishlist</Center>
+                  </Flex>
+                </NavLink>
+                <hr />
+
+                {/* Rewards Link */}
+                <NavLink to="/rewards">
+                  <Flex cursor={'pointer'} h="49px" fontSize='14px' className="pop1">
+                    <Center ml='10px'><RiCoupon3Fill color="#2874f0" size="18px" /></Center>
+                    <Center ml='16px'>Rewards</Center>
+                  </Flex>
+                </NavLink>
+                <hr />
+
+                {/* Gift Cards Link */}
+                <NavLink to="/gift-cards">
+                  <Flex cursor={'pointer'} h="49px" fontSize='14px' className="pop1">
+                    <Center ml='10px'><BsFillCreditCard2BackFill color="#2874f0" size="18px" /></Center>
+                    <Center ml='16px'>Gift cards</Center>
+                  </Flex>
+                </NavLink>
+                <hr />
                 {
                   correct?
                       <Flex onClick={handleLogout}

@@ -11,6 +11,7 @@ import ReactImageMagnify from 'react-image-magnify'
 import './viewPage.css'
 import { json, Link, useParams } from 'react-router-dom';
 import { CartContext } from '../Context/CartContext';
+
 function Viewpage() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
@@ -60,6 +61,7 @@ function Viewpage() {
         }
         
     }
+
     if (loading) {
         return (
             <>
@@ -129,10 +131,32 @@ function Viewpage() {
                 console.log(" res in view page ", res);
             })
     }
+    const addToWishlist = () => {
+        // Add the item to the wishlist (You can implement this functionality here)
+        console.log(viewData[0], "Adding to wishlist");
+
+        // Example: You can send a request to your backend to add the item to the wishlist
+        fetch(`https://flipkart-data.onrender.com/products`, {
+            method: "POST",
+            body: JSON.stringify({ ...viewData[0] }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                console.log("Item added to wishlist", res);
+            })
+    }
+
 
     const handleAddToCart = () => {
         addDatainCart()
         console.log(" handleAddToCart ");
+    }
+    const handleAddToWish = () => {
+        addToWishlist()
+        console.log(" handleAddToWish ");
     }
     const handleBuyNow = () => {
         addDatainCart()
@@ -174,7 +198,7 @@ function Viewpage() {
                                 />
                                 {/* <Img  maxH={{base:"500px",md:"300px", lg:"100%"}} mw='450px' m='auto' src={item.image} /> */}
                             </Box>
-                            <Box p='15px' h='53px' bg="white" borderRadius={'50%'} marginLeft="1px" shadow={'base'}  > <FaHeart color="silver" size="25px" /> </Box>
+                            <Box  cursor={"pointer"} onClick={handleAddToWish} p='15px' h='53px' bg="white" borderRadius={'50%'} marginLeft="1px" shadow={'base'}  > <FaHeart color="silver" size="25px" /> </Box>
                         </Box>
                         <Flex pt='30px' pl="30px" display={{ base: 'none', md: 'block', lg: 'block' }} alignContent={"center"} justifyContent="space-around" w="100%" m="auto" color={"white"}  >
 
@@ -186,7 +210,7 @@ function Viewpage() {
                                 bg="#FE9E00"
                                 rounded='1px'
                                 fontSize={{ base: '10px', md: '13px', lg: '18px' }}
-                                _hover={{ backgroundColor: "#FE9E00" }}
+                                // _hover={{ backgroundColor: "#FE9E00" }}
                                 mr="5px"
                             > <HiShoppingCart />
                                 ADD TO CART
@@ -200,7 +224,7 @@ function Viewpage() {
                                     bg="#FB641B"
                                     rounded='1px'
                                     fontSize={{ base: '10px', md: '13px', lg: '18px' }}
-                                    _hover={{ backgroundColor: "#FB641B" }}
+                                    // _hover={{ backgroundColor: "#FB641B" }}
                                 >
                                     <BsLightningCharge />
                                     BUY NOW
@@ -210,6 +234,7 @@ function Viewpage() {
 
                         <Flex zIndex={100} display={{ base: 'block', md: 'none', lg: 'none' }} position={"fixed"} bottom="0" alignContent={"center"} justifyContent="space-around" w="100%" m="auto" color={"white"} bg="white">
                             <Button alignItems={"center"}
+                                    onClick={handleAddToCart}
                                 size='md'
                                 height="50px"
                                 width='48%'
@@ -217,21 +242,24 @@ function Viewpage() {
                                 rounded='1px'
                                 color={"black"}
                                 fontSize="15px"
-                                _hover={{ backgroundColor: "#ffff" }}
-                            >
+
+                            ><HiShoppingCart />
                                 ADD TO CART
-                            </Button><Button
+                            </Button>
+                            <Link to='/cart'><Button
                                 size='md'
                                 height="50px"
                                 width='48%'
                                 bg="#FB641B"
                                 rounded='1px'
                                 fontSize="15px"
-                                _hover={{ backgroundColor: "#FB641B" }}
-                            >
+
+                                onClick={handleBuyNow}
+                            ><BsLightningCharge/>
 
                                 BUY NOW
                             </Button>
+                            </Link>
                         </Flex>
                     </Box>
 
