@@ -1,10 +1,10 @@
-import { Box } from '@chakra-ui/react'
+
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import CartPage from './Cart/CartPage'
-import ConsratsPage from './Cart/CongratsPage'
+import CongratsPage from './Cart/CongratsPage'
 import DeliveryPage from './Cart/DeliveryPage'
-import OtpPgae from './Cart/OtpPage'
+import OtpPages from './Cart/OtpPage'
 import PaymentPage from './Cart/PayemntPage'
 import Summary from './Cart/Summary'
 import PrivateRoutes from './Context/PrivateRoutes'
@@ -29,12 +29,14 @@ import HelpCenter from "./Pages/HelpCenter";
 import ChooseLanguage from "./Pages/ChooseLanguage";
 import MyNotification from "./Pages/MyNotification";
 import Register from "./Login/Register";
+import {Login} from "./Login/Login";
 
 const AllRoutes = () => {
     return (
         <>
             <Routes>
                 <Route exact path='/' element={<Home/>}/>
+                {/*<Route path='/login' element={<Login/>}/>*/}
                 <Route path='/products/:category_name' element={<Products/>}/>
                 <Route path='/products' element={<Products/>}/>
                 <Route path='/products/view/:item_id' element={<Viewpage/>}/>
@@ -69,10 +71,10 @@ const AllRoutes = () => {
                     </PrivateRoutes>
                     }/>
                 <Route  path="/otp" element={
-                    <OtpPgae/>
+                    <OtpPages/>
                     }/>
                 <Route  path="/congo" element={
-                    <ConsratsPage/>
+                    <CongratsPage/>
                     }/>
                 <Route path='/orderpage' element={
                     <PrivateRoutes>

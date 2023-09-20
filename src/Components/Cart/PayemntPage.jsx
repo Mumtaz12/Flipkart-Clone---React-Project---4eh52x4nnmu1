@@ -3,15 +3,19 @@ import { AddIcon, CheckIcon, InfoIcon, InfoOutlineIcon, UnlockIcon } from '@chak
 import { useContext, useState } from "react";
 import { CartContext } from "../Context/CartContext";
 import { MdSecurity } from "react-icons/md";
-import { Link, Navigate } from "react-router-dom";
+import {Link, Navigate, useNavigate} from "react-router-dom";
 
 function PaymentPage() {
     const [selectedPayment, setSelectedPayment] = useState("");
     const [expiryDate, setExpiryDate] = useState("");
-    const { cartData } = useContext(CartContext);
+    const { cartData ,globalAddress } = useContext(CartContext);
     let sellingPrice = 0;
     let discount = 0;
     let totalAmount = 0;
+    const navigate = useNavigate();
+
+
+
     const handleExpiryDate = (e) => {
         // Remove any non-numeric characters from the input
         const inputDate = e.target.value.replace(/\D/g, "");
@@ -24,7 +28,8 @@ function PaymentPage() {
             setExpiryDate(inputDate);
         }
     };
-
+    const { SetCartData, getData, setOrderpageData, orderpageData } =
+        useContext(CartContext);
     cartData.map((data) => {
         sellingPrice += data.old_price * data.quantity;
         discount += data.discount;
@@ -33,9 +38,28 @@ function PaymentPage() {
 
     discount = Math.floor(((discount / cartData.length) * sellingPrice) / 100);
 
-    const { globalAddress } = useContext(CartContext);
+
     const [cardNumber, setCardNumber] = useState("");
-    const toast = useToast();
+    const [toast, setToast] = useState({});
+    const [showOtpBox, setShowOtpBox] = useState(false);
+
+
+    const handlePaymentSelect = (value) => {
+        setSelectedPayment(value);
+        // If Cash on Delivery is selected, hide the OTP box
+        if (value === "COD") {
+            setShowOtpBox(false);
+        } else {
+            setShowOtpBox(true);
+        }
+    };
+    const handlePlaceOrder = () => {
+        // Simulate placing an order (replace this with your actual order logic)
+        setTimeout(() => {
+            // After successfully placing the order, navigate to the congratulations page
+            navigate("/congo");
+        }, 2000); // Simulate a delay for the order placement
+    };
 
     const handelCardNumber = (e) => {
         // Remove any non-numeric characters from the input
@@ -49,6 +73,24 @@ function PaymentPage() {
     };
 
     const [openOtpBox, setOpenOtpBox] = useState(false);
+    const orderPageProducts = () => {
+        // ... (rest of your code)
+        setOrderpageData([...orderpageData, ...cartData]);
+
+        for (let i = 0; i < cartData.length; i++) {
+            fetch(`https://flipkart-data.onrender.com/products/${cartData[i].id}`, {
+                method: "DELETE",
+            })
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    getData();
+                    console.log(data, " test after delete data ");
+                });
+        }
+    };
+
 
     const handelForwardOtp = () => {
         setOpenOtpBox(true);
@@ -67,9 +109,6 @@ function PaymentPage() {
         }
     };
 
-    const handlePaymentSelect = (value) => {
-        setSelectedPayment(value);
-    };
 
     if (cartData.length === 0) {
         return <Navigate to='/cart' />
@@ -120,7 +159,7 @@ function PaymentPage() {
                     {/* Left top 1 */}
                     <Box
                         w='100%'
-                        h='10vh'
+                        h='15vh'
                         bg='white'
                         display='flex'
                         justifyContent='space-between'
@@ -129,8 +168,8 @@ function PaymentPage() {
                         mt='4'
                     >
                         <Box>
-                            <Box  >
-                                <Box bg='#f1f3f6' pl='2' pr='2' color='blue' mr='4' borderRadius='2' > 2</Box>
+                            <Box  ml='6' display='flex' alignItems='center'>
+                                <Box  bg='#f1f3f6' pl='2' pr='2' color='blue' mr='4' borderRadius='2' > 2</Box>
                                 <Text fontWeight='500' color='grey' >DELIVERY ADDRESS</Text>
                                 <CheckIcon ml='3' color='blue.600' />
                             </Box>
@@ -254,6 +293,8 @@ function PaymentPage() {
                             ></Radio>
                             <Text ml='6' >Credit / Debit / ATM Card</Text>
                         </Box>
+                        {/* Conditionally render the OTP box based on selected payment method */}
+                        {showOtpBox && (
                         <Box display='grid' justifyContent='start' textAlign='start' alignItems='start' >
                             <Input
                                 type="text"
@@ -283,7 +324,7 @@ function PaymentPage() {
                                 <Link to={cardNumber.length === 19 ? '/otp' : ''} >PAY ₹{totalAmount}</Link>
                             </Button>
                             <Text ml='16' color='grey' mt='2' mb='4' >Add and secure your card as per RBI guidelines</Text>
-                        </Box>
+                        </Box>)}
                     </Box>
 
 
@@ -308,6 +349,7 @@ function PaymentPage() {
                         </Box>
                     </Box>
                     {/* COD */}
+
                     <Box bg='white' w='100%' display='block' borderBottom='1px solid #f2f2f2'  >
 
                         <Box display='flex' p='5' alignItems='center' >
@@ -315,11 +357,11 @@ function PaymentPage() {
                                    isChecked={selectedPayment === "COD"}
                                    onChange={() => handlePaymentSelect("COD")}></Radio>
                             < Text ml='6'>Cash on Delivery</Text>
-                            <Button ml='16' color='white' mt='4' w='40%' onClick={handelForwardOtp} bg='#fb641b' borderRadius='0' >
-                                <Link to={'/otp'} >SUBMIT</Link>
+                            <Button ml='16' color='white' mt='4' w='40%' onClick={handlePlaceOrder} bg='#fb641b' borderRadius='0' >
+                                <Link to={selectedPayment === "COD" ? "/congo" : ""}>Place Order</Link>
                             </Button>
                         </Box>
-                    </Box>
+                    </Box>)
 
 
 

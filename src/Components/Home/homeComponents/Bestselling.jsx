@@ -28,14 +28,7 @@ function Bestselling() {
 
         );
     };
-    // var settings = {
-    //     infinite: false,
-    //     speed: 500,
-    //     slidesToShow: 4,
-    //     slidesToScroll: 4,
-    //     prevArrow: <PreviousBtn />,
-    //     nextArrow: <NextBtn />
-    // }
+
     var settings = {
         prevArrow: <PreviousBtn />,
          nextArrow: <NextBtn />,
@@ -135,19 +128,23 @@ function Bestselling() {
             </Box>
               {/* mobile version */}
               <Box  w="100%" display={{ base: 'block', md: 'none', lg: 'none' }} bg="orange" backgroundImage={"https://rukminim1.flixcart.com/fk-p-reco/850/200/images/Reco_BDS_e1c4ff.jpg?q=90"} p="10px"> 
-                <Box mb="20px" mt="10px" alignItems={"center"} display="flex" justifyContent={"space-between"}> <Text fontWeight={"500"} fontSize="19px">  Living Room Decorations</Text> <Button size="sm" colorScheme='messenger'>View All</Button></Box>
-                <Box className='itemGrid'display={{ base: 'grid', md: 'none', lg: 'none' }} >
-                    
-                    
-                    {bestselling.map((item,index) => 
-                    <Box key={Math.random()+index} m="5px" borderRadius="6px" bg="white" alignItems="center" textAlign={"center"}border="1px solid silver">
+                <Box mb="20px" mt="10px" alignItems={"center"} display="flex" justifyContent={"space-between"}> <Text fontWeight={"500"} fontSize="19px">  Living Room Decorations</Text> <Button size="sm" colorScheme='messenger'><NavLink to='./products/home'>
+                    VIEW ALL
+                </NavLink></Button></Box>
+                <Box className='itemGrid' display={{ base: 'grid', md: 'none', lg: 'none' }} >
+
+
+                    {bestselling.filter(item=>item.category_name==="home").map(item=>
+                        <NavLink to={`/products/view/${item.item_id}`} key={Date.now()+item.item_id+Math.random()}>
+                    <Box  m="5px" borderRadius="6px" bg="white" alignItems="center" textAlign={"center"}border="1px solid silver">
                         <Img maxWidth="160px" h="190px" m="auto" _hover={{ transform: "scale(1.1)", transition: "400ms" }} p="10px" src={item.image} alt="" />
                         <Text fontWeight="500" p="5px"> {item.description}</Text>
-                      
-                       
+
                         <Text pb="10px" fontWeight={"medium"} color={"green"}> From  ₹  {item.new_price} </Text>
-                    </Box>)}
-                    
+                    </Box>   </NavLink>
+                    )}
+
+
                 </Box>
             </Box>
             {/* mobile version end */}

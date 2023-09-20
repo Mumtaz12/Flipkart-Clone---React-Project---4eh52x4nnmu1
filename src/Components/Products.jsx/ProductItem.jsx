@@ -1,10 +1,14 @@
 import { Box, Flex, Image, Text, useMediaQuery } from '@chakra-ui/react'
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
+
 
 const ProductItem = (props) => {
     const { property, i } = props;
     const [isLargerThan720] = useMediaQuery('(min-width: 720px)')
+
+
+
 
     return (
         <NavLink to={`/products/view/${property.item_id}`}>
@@ -35,7 +39,7 @@ const ProductItem = (props) => {
                         </Box>
                     </Box>
                     {/* whishlist icon */}
-                    <Box  pos={'absolute'} display='inline-block' top={'12px'} right={isLargerThan720?'12px':"5px"} cursor='pointer'>
+                    <Box  pos={'absolute'} display='inline-block' top={'12px'} right={isLargerThan720?'12px':"5px"} cursor='pointer' >
                         <Box pos={'relative'} display='inline-flex' bg={'#fff'} borderRadius='50%' p='5px' boxShadow={'md'}>
                             <svg width="28" height="28" viewBox="0 0 20 16">
                                 <path

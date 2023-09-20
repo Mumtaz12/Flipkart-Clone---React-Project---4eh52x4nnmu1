@@ -28,14 +28,7 @@ function Mobile() {
 
         );
     };
-    // var settings = {
-    //     infinite: false,
-    //     speed: 500,
-    //     slidesToShow: 4,
-    //     slidesToScroll: 4,
-    //     prevArrow: <PreviousBtn />,
-    //     nextArrow: <NextBtn />
-    // }
+
     var settings = {
         prevArrow: <PreviousBtn />,
          nextArrow: <NextBtn />,
@@ -110,7 +103,7 @@ function Mobile() {
 
                 <WrapItem pt="20px">
                     <Button fontSize={{ base: '6px', md: '9px', lg: '12px' }} m={"auto"} colorScheme='messenger'>
-                    <NavLink to='./products/mobiles'>
+                    <NavLink to={'./products/mobiles'}>
                         VIEW ALL
                         </NavLink>
                         </Button>
@@ -137,7 +130,9 @@ function Mobile() {
                 </Slider>
             </Box>
             <Box display={{ base: 'block', md: 'none', lg: 'none' }} bg="#FFC3E6" p="10px" backgroundImage={"https://rukminim1.flixcart.com/fk-p-reco/600/150/images/Reco_BDS_ffb8e3.jpg?q=90"}> 
-                <Box mb="20px" mt="10px" alignItems={"center"} display="flex" justifyContent={"space-between"}> <Text fontSize={"19px"} >  Top Mobile Deals</Text> <Button size="sm" colorScheme='messenger'>View All</Button></Box>
+                <Box mb="20px" mt="10px" alignItems={"center"} display="flex" justifyContent={"space-between"}> <Text fontSize={"19px"} >  Top Mobile Deals</Text> <Button size="sm" colorScheme='messenger'> <NavLink to='./products/home'>
+                    VIEW ALL
+                </NavLink></Button></Box>
                 <Box className='itemGrid'display={{ base: 'grid', md: 'none', lg: 'none' }}>
                     
                     {mobile.filter(item=>item.category_name==="mobiles").map(item => 

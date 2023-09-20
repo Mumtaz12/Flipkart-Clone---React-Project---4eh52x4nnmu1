@@ -93,12 +93,12 @@ function BeforeFooter() {
 {/*                <Text fontSize={"12px"} pb="9px"> */}
 {/*                Work hard and no play? We don't believe in that. Get access to best-selling fiction and non-fiction books by your favourite authors, thrilling English and Indian blockbusters, most-wanted gaming consoles, and a tempting range of fitness and sports gadgets and equipment bound to inspire you to get moving.*/}
 {/*</Text>*/}
-{/*<Text fontSize={"16px"} pb="9px" fontWeight={"bold"}> */}
-{/*                Grocery/Supermart*/}
-{/*                </Text>*/}
-{/*                <Text fontSize={"12px"} pb="9px"> */}
-{/*                Launching into the grocery vertical, Flipkart introduces Supermart that is out to bring everyday essentials close to you. From pulses, spices, dairy, personal and sanitary care, breakfast essentials, health drinks, spreads, ready to cook, grooming to cleaning agents, we are happy to present everything you need to run a house. Now buy Grocery products for as low as 1 Rupee only - our 1 Rupee Store presents new products every day for a nominal price of 1 Rupee only. Terms and conditions apply.*/}
-{/*           </Text>*/}
+<Text fontSize={"16px"} pb="9px" fontWeight={"bold"}>
+                Grocery/Supermart
+                </Text>
+                <Text fontSize={"12px"} pb="9px">
+                Launching into the grocery vertical, Flipkart introduces Supermart that is out to bring everyday essentials close to you. From pulses, spices, dairy, personal and sanitary care, breakfast essentials, health drinks, spreads, ready to cook, grooming to cleaning agents, we are happy to present everything you need to run a house. Now buy Grocery products for as low as 1 Rupee only - our 1 Rupee Store presents new products every day for a nominal price of 1 Rupee only. Terms and conditions apply.
+           </Text>
             </Box>
         </div>
     );

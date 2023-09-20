@@ -1,4 +1,4 @@
-import { Box, Flex, Tag, TagCloseButton, TagLabel, Text, VStack, Wrap, WrapItem } from '@chakra-ui/react'
+import { Box, Flex, Tag, TagLabel, Text, VStack, Wrap, WrapItem } from '@chakra-ui/react'
 import React from 'react'
 import Filter from './Filter/AllFilter'
 

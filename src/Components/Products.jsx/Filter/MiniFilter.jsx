@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, CheckboxGroup, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Flex, FormLabel, Image, Input, InputGroup, InputLeftAddon, InputRightAddon, Select, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, Text, Textarea, useDisclosure } from '@chakra-ui/react'
+import { Button, Checkbox, CheckboxGroup, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Flex, Image,Stack, Tab, TabList, TabPanel, TabPanels, Tabs, Text, useDisclosure } from '@chakra-ui/react'
 import React from 'react'
 
 const MiniFilter = ({ getCheckboxProps, value }) => {

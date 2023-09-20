@@ -27,10 +27,11 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import { useContext } from "react";
 import { useState } from "react";
-import { AiFillSafetyCertificate } from "react-icons/ai";
-import { MdSecurity } from "react-icons/md";
+// import { AiFillSafetyCertificate } from "react-icons/ai";
+// import { MdSecurity } from "react-icons/md";
 import { Link, NavLink } from "react-router-dom";
 import { CartContext } from "../Context/CartContext";
+import {toast, ToastContainer} from "react-toastify";
 
 function CartPage() {
   let sellingPrice = 0;
@@ -62,6 +63,10 @@ function CartPage() {
   const initialFocusRef = useRef();
 
   useEffect(() => {
+    const storedCartData = localStorage.getItem("cartData");
+    if (storedCartData) {
+      SetCartData(JSON.parse(storedCartData));
+    }
     window.scrollTo(0, 0);
     getData();
     getAddress();
@@ -73,8 +78,20 @@ function CartPage() {
     onClose();
     fetch(`${carturl}/${Deleteid}`, {
       method: "DELETE",
-    });
-    setCount(count - 1);
+    })  .then(() => {
+      // Update count only if the DELETE request is successful
+      setCount(count - 1);
+      const updatedCartData = cartData.filter((item) => item.id !== Deleteid);
+      SetCartData(updatedCartData);
+
+      // Update localStorage with the modified cart data
+      localStorage.setItem("cartData", JSON.stringify(updatedCartData));
+      // You may also want to update other relevant state variables or data here
+    })
+        .catch((error) => {
+          // Handle errors if the DELETE request fails
+          console.error("Error deleting item:", error);
+        });
   };
 
   const handelID = (id) => {
@@ -82,17 +99,48 @@ function CartPage() {
     console.log(id);
     setDeleteId(id);
   };
+  const handleDeleteAddress = () => {
+    onClose();
+    fetch(`https://flipkart-data.onrender.com/address`, {
+      method: "DELETE",
+    })
+        .then((response) => {
+          if (response.ok) {
+            // Address deleted successfully
+            toast.success("Address deleted successfully!");
+            setAddress({}); // Clear the address
+          } else {
+            toast.error("Failed to delete address.");
+          }
+        })
+        .catch((error) => {
+          toast.error("An error occurred while deleting address.");
+          console.error("Error deleting address:", error);
+        });
+  };
 
   const handelPatchLess = (id, quantity) => {
-    fetch(`${carturl}/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ ...quantity, quantity: quantity - 1 }),
-    });
-    console.log(id);
-    setLessQuantityState(lessQuantityState - 1);
+    if (quantity > 1) {
+      fetch(`${carturl}/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...quantity, quantity: quantity - 1 }),
+      }).then(() => {
+        // Update the cartData state to reflect the changes immediately
+        const updatedCartData = cartData.map((item) => {
+          if (item.id === id) {
+            return { ...item, quantity: quantity - 1 };
+          }
+          return item;
+        });
+        SetCartData(updatedCartData);
+
+        // Update localStorage with the modified cart data
+        localStorage.setItem("cartData", JSON.stringify(updatedCartData));
+      });
+    }
   };
 
   const handelPatchAdd = (id, quantity) => {
@@ -102,8 +150,19 @@ function CartPage() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ ...quantity, quantity: quantity + 1 }),
+    }).then(() => {
+      // Update the cartData state to reflect the changes immediately
+      const updatedCartData = cartData.map((item) => {
+        if (item.id === id) {
+          return { ...item, quantity: quantity + 1 };
+        }
+        return item;
+      });
+      SetCartData(updatedCartData);
+
+      // Update localStorage with the modified cart data
+      localStorage.setItem("cartData", JSON.stringify(updatedCartData));
     });
-    setAddQuantityState(addQuantityState + 1);
   };
 
   cartData.map((data) => {
@@ -157,8 +216,9 @@ function CartPage() {
 
   return (
       <Box w="100%" bg="#f1f3f6" minH="100vh" pt="20px">
-        <HStack w="90%" bg="f1f3f6" margin="auto" display="flex" alignItems="start" flexWrap="wrap">
-          <Box shadow="md" bg="f1f3f6" w="100%" p="3" borderRadius="5" position="relative">
+        <ToastContainer />
+        <HStack w="100%" bg="f1f3f6" margin="auto" display="flex" alignItems="start" flexWrap="wrap">
+          <Box shadow="md" bg="f1f3f6"  w={['100%','69%']} p="3" borderRadius="5" position="relative">
             <Box
                 w="100%"
                 bg="white"
@@ -201,7 +261,7 @@ function CartPage() {
                         {address.Name} <br />
                         {address.Address}, {address.City}
                       </Box>
-                      <Button w="20%" h="30px" mt="1" mb="-5" bg="red" colorScheme="red" fontSize="10px" color="white" onClick={handelDeleteCart}>
+                      <Button w="20%" h="30px" mt="1" mb="-5" bg="red" colorScheme="red" fontSize="10px" color="white"  onClick={handleDeleteAddress}>
                         Delete
                       </Button>
                     </Text>
@@ -307,7 +367,7 @@ function CartPage() {
               mt="10"
               shadow="md"
               h="auto"
-              w="100%"
+              w={['100%','29.5%']}
               borderRadius="5"
               p="3"
           >

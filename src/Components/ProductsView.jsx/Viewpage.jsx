@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, Flex, Grid, GridItem, HStack, Img, Input, Skeleton, SkeletonCircle, SkeletonText, Stack, Text, useMediaQuery } from '@chakra-ui/react'
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, Flex, Grid, GridItem, HStack, Img, Input, Skeleton,  Stack, Text} from '@chakra-ui/react'
 import { FaHeart } from 'react-icons/fa';
 import { HiShoppingCart } from 'react-icons/hi'
 import { IoMdShareAlt } from 'react-icons/io'
@@ -9,33 +9,15 @@ import { AiFillStar } from 'react-icons/ai'
 import { BsLightningCharge } from 'react-icons/bs'
 import ReactImageMagnify from 'react-image-magnify'
 import './viewPage.css'
-import { json, Link, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { CartContext } from '../Context/CartContext';
+import {toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function Viewpage() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
-    // const product = [
-    //     {
-    //         brand: "HIGHLANDER",
-    //         category_id: 3,
-    //         category_name: "fashion",
-    //         image: "https://i.ibb.co/23StKfC/5e3aa027808d.jpg",
-    //         description: "Georgette Blend Stitched Flared/A-line Gown",
-    //         stars: 4.3,
-    //         ratings: "4,161 Ratings ",
-    //         reviews: " 310 Reviews",
-    //         warrant: "1 Year Manufacturer Warranty for Phone and 6 Months Warranty for In-Box Accessories",
-    //         new_price: 1799,
-    //         old_price: 2999,
-    //         discount: 40,
-    //         delivery_type: "Free delivery",
-    //         offer: "₹16,750",
-    //         offer2: " Off on Exchange",
-    //         hidden_stars: 4.3,
-    //         item_id: 1
-    //     }
-    // ]
+
 
     const { SetCartData, carturl, getData } = useContext(CartContext)
 
@@ -48,24 +30,27 @@ function Viewpage() {
     }, [item_id])
     const fetchData = async () => {
         setLoading(true);
+        setError(false); // Reset error state
+
         try {
-            const res = await fetch(`https://flipkart-data.onrender.com/all?item_id=${item_id}`)
-            const res2 = await res.json()
-            console.log(res2);
-            setViewData([...res2]);
-            setLoading(false)
+            const res = await fetch(`https://flipkart-data.onrender.com/all?item_id=${item_id}`);
+            if (!res.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const res2 = await res.json();
+            setViewData(res2);
+            setLoading(false);
         } catch (err) {
-            setLoading(false)
-            setError(true)
-            console.log(err, "err");
+            setLoading(false);
+            setError(true);
+            console.error(err); // Log the error for debugging
         }
-        
-    }
+    };
 
     if (loading) {
         return (
             <>
-            
+
                 <Stack>
                     <Skeleton height='20px' />
                     <Skeleton height='20px' />
@@ -95,69 +80,99 @@ function Viewpage() {
     if (error) {
         return (
             <><Alert
-            status='error'
-            variant='subtle'
-            flexDirection='column'
-            alignItems='center'
-            justifyContent='center'
-            textAlign='center'
-            height='500px'
-          >
-            <AlertIcon  boxSize='40px' mr={0} />
-            
-            <AlertTitle mt={4} mb={1} fontSize='lg'>
-           Opps!
-            </AlertTitle>
-            <AlertDescription maxWidth='2xl'>
-              Thanks for Your Patience. Please Refresh.
-            </AlertDescription>
-          </Alert>
+                status='error'
+                variant='subtle'
+                flexDirection='column'
+                alignItems='center'
+                justifyContent='center'
+                textAlign='center'
+                height='500px'
+            >
+                <AlertIcon  boxSize='40px' mr={0} />
+
+                <AlertTitle mt={4} mb={1} fontSize='lg'>
+                    Opps!
+                </AlertTitle>
+                <AlertDescription maxWidth='2xl'>
+                    Thanks for Your Patience. Please Refresh.
+                </AlertDescription>
+            </Alert>
             </>
         )
     }
-    const addDatainCart = () => { // viewData[0]
+    const addDatainCart = (destination) => {
         console.log(viewData[0], " check data ");
 
         fetch(`https://flipkart-data.onrender.com/products`, {
             method: "POST",
-            body: JSON.stringify({ ...viewData[0] }),
+            body: JSON.stringify({
+                ...viewData[0],
+                destination: destination, // Add 'destination' field to specify where to add the item
+            }),
             headers: {
                 "Content-Type": "application/json",
             },
         })
             .then((res) => res.json())
             .then((res) => {
-                getData()
+                getData();
                 console.log(" res in view page ", res);
-            })
-    }
-    const addToWishlist = () => {
-        // Add the item to the wishlist (You can implement this functionality here)
-        console.log(viewData[0], "Adding to wishlist");
-
-        // Example: You can send a request to your backend to add the item to the wishlist
-        fetch(`https://flipkart-data.onrender.com/products`, {
-            method: "POST",
-            body: JSON.stringify({ ...viewData[0] }),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-            .then((res) => res.json())
-            .then((res) => {
-                console.log("Item added to wishlist", res);
-            })
-    }
+            });
+    };
 
 
     const handleAddToCart = () => {
         addDatainCart()
+        toast.success(`Item is Added to Cart`, {
+            position: 'top-center',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
         console.log(" handleAddToCart ");
     }
     const handleAddToWish = () => {
         addToWishlist()
+        toast.success(`Item is Added to wishlist`, {
+            position: 'top-center',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
         console.log(" handleAddToWish ");
     }
+    const addToWishlist = () => {
+        if (viewData.length > 0) {
+            // Check if viewData has items
+            console.log(viewData[0], "Adding to wishlist");
+
+            fetch(`https://flipkart-data.onrender.com/products`, {
+                method: "POST",
+                body: JSON.stringify({ ...viewData[0] }), // Send the first item in viewData
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+                .then((res) => {
+                    if (!res.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return res.json();
+                })
+                .then((res) => {
+                    console.log("Item added to wishlist", res);
+                })
+                .catch((error) => {
+                    console.error(error); // Log the error for debugging
+                });
+        }
+    };
     const handleBuyNow = () => {
         addDatainCart()
     }
@@ -166,6 +181,7 @@ function Viewpage() {
     // const [isLargerThan720] = useMediaQuery('(min-width: 720px)')
     return (
         <div>
+            <ToastContainer position="top-center" autoClose={3000} />
             <HStack p="10px" display={{ base: 'block', md: 'flex', lg: 'flex' }}>
                 {viewData.map((item, index) => (
                     <Box key={index} w={{ base: '100%', md: '40%', lg: '40%' }} h={{ base: "100h", md: "100h", lg: "100h" }} >
@@ -203,15 +219,15 @@ function Viewpage() {
                         <Flex pt='30px' pl="30px" display={{ base: 'none', md: 'block', lg: 'block' }} alignContent={"center"} justifyContent="space-around" w="100%" m="auto" color={"white"}  >
 
                             <Button alignItems={"center"}
-                                size='md'
-                                onClick={handleAddToCart}
-                                height={{ base: '30px', md: '40px', lg: '55px' }}
-                                width='45%'
-                                bg="#FE9E00"
-                                rounded='1px'
-                                fontSize={{ base: '10px', md: '13px', lg: '18px' }}
-                                // _hover={{ backgroundColor: "#FE9E00" }}
-                                mr="5px"
+                                    size='md'
+                                    onClick={handleAddToCart}
+                                    height={{ base: '30px', md: '40px', lg: '55px' }}
+                                    width='45%'
+                                    bg="#FE9E00"
+                                    rounded='1px'
+                                    fontSize={{ base: '10px', md: '13px', lg: '18px' }}
+                                    // backgroundColor: "#FE9E00"
+                                    mr="5px"
                             > <HiShoppingCart />
                                 ADD TO CART
                             </Button>
@@ -224,7 +240,7 @@ function Viewpage() {
                                     bg="#FB641B"
                                     rounded='1px'
                                     fontSize={{ base: '10px', md: '13px', lg: '18px' }}
-                                    // _hover={{ backgroundColor: "#FB641B" }}
+                                    // backgroundColor: "#FB641B"
                                 >
                                     <BsLightningCharge />
                                     BUY NOW
@@ -235,13 +251,13 @@ function Viewpage() {
                         <Flex zIndex={100} display={{ base: 'block', md: 'none', lg: 'none' }} position={"fixed"} bottom="0" alignContent={"center"} justifyContent="space-around" w="100%" m="auto" color={"white"} bg="white">
                             <Button alignItems={"center"}
                                     onClick={handleAddToCart}
-                                size='md'
-                                height="50px"
-                                width='48%'
-                                bg="white"
-                                rounded='1px'
-                                color={"black"}
-                                fontSize="15px"
+                                    size='md'
+                                    height="50px"
+                                    width='48%'
+                                    bg="white"
+                                    rounded='1px'
+                                    color={"black"}
+                                    fontSize="15px"
 
                             ><HiShoppingCart />
                                 ADD TO CART
@@ -255,7 +271,7 @@ function Viewpage() {
                                 fontSize="15px"
 
                                 onClick={handleBuyNow}
-                            ><BsLightningCharge/>
+                            >
 
                                 BUY NOW
                             </Button>
@@ -365,7 +381,7 @@ function Viewpage() {
                             </Box>
                             <Box>
                                 <Button bg='#2974F1' color={"white"} pos=''
-                                    fontSize={{ base: '8px', md: '11px', lg: '15px' }} h={{ base: '18px', md: '30px', lg: '40px' }} _hover={{ bg: "#2974F1" }}>
+                                        fontSize={{ base: '8px', md: '11px', lg: '15px' }} h={{ base: '18px', md: '30px', lg: '40px' }} _hover={{ bg: "#2974F1" }}>
                                     Rate Product</Button>
                             </Box>
                         </Flex>

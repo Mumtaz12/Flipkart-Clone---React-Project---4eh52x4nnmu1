@@ -1,7 +1,5 @@
 import { Box, Grid, GridItem, Img, Text } from '@chakra-ui/react';
 import React from 'react';
-
-import { BsBox } from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
 
 function CategoryBar() {

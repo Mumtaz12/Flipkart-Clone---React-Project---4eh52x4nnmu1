@@ -7,6 +7,7 @@ import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { BsFillStarFill } from 'react-icons/bs';
 
 import Slider from "react-slick";
+import {NavLink} from "react-router-dom";
 
 function TopOffers() {
     const [topOffers, settopOffers] = useState([]);
@@ -103,7 +104,9 @@ function TopOffers() {
                 <Text paddingTop={{base:"120px", md:"120px", lg:"70px"}} fontSize={{ base: '10px', md: '20px', lg: '30px' }}>  Top Deals Of the Day</Text>
 
                 <WrapItem mt="30px">
-                    <Button fontSize={{ base: '6px', md: '9px', lg: '12px' }} m={"auto"} colorScheme='messenger'>VIEW ALL</Button>
+                    <Button fontSize={{ base: '6px', md: '9px', lg: '12px' }} m={"auto"} colorScheme='messenger'><NavLink to='./products/home'>
+                        VIEW ALL
+                    </NavLink></Button>
                 </WrapItem>
                 <Img mt="2%" src="https://images.unsplash.com/photo-1607082349566-187342175e2f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZGlzY291bnR8ZW58MHx8MHx8&w=1000&q=80" alt="fg" />
 
@@ -122,7 +125,9 @@ function TopOffers() {
                 </Box>
                 {/* mobile version */}
                 <Box display={{ base: 'block', md: 'none', lg: 'none' }} bg="orange" backgroundImage={"https://rukminim1.flixcart.com/fk-p-reco/850/200/images/Reco_BDS_e1c4ff.jpg?q=90"} p="10px"> 
-                <Box mb="20px" mt="10px" alignItems={"center"} display="flex" justifyContent={"space-between"}> <Text fontSize={"19px"}>  Top Deals Of the Day</Text> <Button size="sm" colorScheme='messenger'>View All</Button></Box>
+                <Box mb="20px" mt="10px" alignItems={"center"} display="flex" justifyContent={"space-between"}> <Text fontSize={"19px"}>  Top Deals Of the Day</Text> <Button size="sm" colorScheme='messenger'><NavLink to='./products/home'>
+                    VIEW ALL
+                </NavLink></Button></Box>
                 <Box className='itemGrid'display={{ base: 'grid', md: 'none', lg: 'none' }} >
                     
                     

@@ -141,7 +141,9 @@ function Electronics() {
             </Box>
               {/* mobile version */}
               <Box display={{ base: 'block', md: 'none', lg: 'none' }} bg="orange" backgroundImage={"https://rukminim1.flixcart.com/fk-p-reco/850/200/images/Reco_BDS_9be2e3.jpg?q=90"} p="10px"> 
-                <Box mb="20px" mt="10px" alignItems={"center"} display="flex" justifyContent={"space-between"}> <Text fontWeight={'600'} fontSize="19px">  Best Of Electronics</Text> <Button size="sm" colorScheme='messenger'>View All</Button></Box>
+                <Box mb="20px" mt="10px" alignItems={"center"} display="flex" justifyContent={"space-between"}> <Text fontWeight={'600'} fontSize="19px">  Best Of Electronics</Text> <Button size="sm" colorScheme='messenger'> <NavLink to='./products/home'>
+                    VIEW ALL
+                </NavLink></Button></Box>
                 <Box className='itemGrid'display={{ base: 'grid', md: 'none', lg: 'none' }} >
                     
                     

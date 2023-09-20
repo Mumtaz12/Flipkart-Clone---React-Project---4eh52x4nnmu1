@@ -138,7 +138,9 @@ function Fashion() {
                 </Box>
                  {/* mobile start  */}
                 <Box display={{ base: 'block', md: 'none', lg: 'none' }} bg="#FFC3E6" p="10px" backgroundImage={"https://rukminim1.flixcart.com/fk-p-reco/600/150/images/Reco_BDS_ffb8e3.jpg?q=90"}> 
-                <Box mb="20px" mt="10px" alignItems={"center"} display="flex" justifyContent={"space-between"}> <Text fontWeight={"500"} fontSize="19px"> Fashion Top Deals</Text> <Button size="sm" colorScheme='messenger'>View All</Button></Box>
+                <Box mb="20px" mt="10px" alignItems={"center"} display="flex" justifyContent={"space-between"}> <Text fontWeight={"500"} fontSize="19px"> Fashion Top Deals</Text> <Button size="sm" colorScheme='messenger'> <NavLink to='./products/home'>
+                    VIEW ALL
+                </NavLink></Button></Box>
                 <Box className='itemGrid'display={{ base: 'grid', md: 'none', lg: 'none' }}>
                     
                     {fashion.filter(item=>item.category_name==="fashion").map(item =>

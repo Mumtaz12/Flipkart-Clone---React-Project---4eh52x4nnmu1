@@ -1,60 +1,86 @@
-// WishlistContextProvider.js
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useState, useEffect } from "react";
 
 export const WishlistContext = createContext();
 
-const WishlistContextProvider = ({ children }) => {
-    const wishlistUrl = 'https://flipkart-data.onrender.com/products';
+export const WishlistContextProvider = ({ children }) => {
+    // Initialize wishlist data by retrieving it from localStorage
+    const [wishlistData, setWishlistData] = useState(
+        JSON.parse(localStorage.getItem("wishlistData")) || []
+    );
 
-    const [wishlistData, setWishlistData] = useState([]); // Initialize as an empty array
-    const [loading, setLoading] = useState(false);
-    const [wishlistpageData, setWishlistpageData] = useState([]);
+    // Function to update and save wishlist data to localStorage
+    const updateWishlistData = (newData) => {
+        setWishlistData(newData);
+        localStorage.setItem("wishlistData", JSON.stringify(newData));
+    };
+    const addToWishlist = (itemToAdd) => {
+        // Check if the item is already in the wishlist
+        const existingItem = wishlistData.find((item) => item.id === itemToAdd.id);
 
-    // Load wishlist page data from localStorage on component mount
+        if (!existingItem) {
+            // If it's not in the wishlist, add it with a quantity of 1
+            setWishlistData([...wishlistData, { ...itemToAdd, quantity: 1 }]);
+        }
+    };
+
+    // Remove an item from the wishlist
+    const removeFromWishlist = (itemId) => {
+        console.log("Removing item with ID:", itemId);
+
+        const updatedWishlist = wishlistData.filter((item) => item.id !== itemId);
+        console.log("Updated Wishlist:", updatedWishlist);
+
+        setWishlistData(updatedWishlist);
+        localStorage.setItem("wishlistData", JSON.stringify(updatedWishlist));
+    };
+
+    // Increase item quantity in the wishlist
+    const increaseQuantity = (itemId, currentQuantity) => {
+        const updatedWishlist = wishlistData.map((item) =>
+            item.id === itemId ? { ...item, quantity: currentQuantity + 1 } : item
+        );
+        setWishlistData(updatedWishlist);
+    };
+
+    // Decrease item quantity in the wishlist
+    const decreaseQuantity = (itemId, currentQuantity) => {
+        if (currentQuantity > 1) {
+            const updatedWishlist = wishlistData.map((item) =>
+                item.id === itemId ? { ...item, quantity: currentQuantity - 1 } : item
+            );
+            setWishlistData(updatedWishlist);
+        }
+    };
+
+    // Implement other wishlist functions (addToWishlist, removeFromWishlist, etc.) as before
+
     useEffect(() => {
-        const prevData = JSON.parse(localStorage.getItem('wishlistpageData')) || [];
-        setWishlistpageData(prevData);
+        // Simulate loading wishlist data from an API or storage
+        const fetchData = async () => {
+            try {
+                // Replace this with your actual API call or data fetching logic
+                const response = await fetch(`https://flipkart-data.onrender.com/products`);
+                const data = await response.json();
+                updateWishlistData(data); // Update and save the fetched data to wishlistData and localStorage
+            } catch (error) {
+                console.error("Error fetching wishlist data:", error);
+            }
+        };
+
+        fetchData();
     }, []);
 
-    // Save wishlist page data to localStorage whenever it changes
-    useEffect(() => {
-        localStorage.setItem('wishlistpageData', JSON.stringify(wishlistpageData));
-    }, [wishlistpageData]);
-
-    // Fetch wishlist data and update state
-    function getWishlistData() {
-        setLoading(true);
-        fetch(wishlistUrl)
-            .then((res) => res.json())
-            .then((res) => {
-                console.log(res, 'wishlist data');
-                setWishlistData(res);
-            })
-            .catch((err) => {
-                console.error(err);
-                // Handle errors here, e.g., set an error state
-            })
-            .finally(() => setLoading(false));
-    }
-
-    // Call the getWishlistData function on component mount
-    useEffect(() => {
-        getWishlistData();
-    }, [wishlistUrl]);
+    const value = {
+        wishlistData,
+        addToWishlist,
+        removeFromWishlist,
+        increaseQuantity,
+        decreaseQuantity,
+    };
 
     return (
-        <WishlistContext.Provider
-            value={{
-                getWishlistData,
-                wishlistData,
-                loading,
-                wishlistpageData,
-                setWishlistpageData,
-            }}
-        >
+        <WishlistContext.Provider value={value}>
             {children}
         </WishlistContext.Provider>
     );
 };
-
-export default WishlistContextProvider;
