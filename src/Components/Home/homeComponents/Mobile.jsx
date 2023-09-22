@@ -103,9 +103,9 @@ function Mobile() {
 
                 <WrapItem pt="20px">
                     <Button fontSize={{ base: '6px', md: '9px', lg: '12px' }} m={"auto"} colorScheme='messenger'>
-                    <NavLink to={'./products/mobiles'}>
+                    <a href={'./products/mobiles'} target={"_blank"} rel={"noopener noreferrer"}>
                         VIEW ALL
-                        </NavLink>
+                        </a>
                         </Button>
                 </WrapItem>
                 <Img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAQJ6xBHIA9e3Pf3QMok5yTZn3XF2Z3KcZ3w&usqp=CAU" alt="fg" />
@@ -114,7 +114,7 @@ function Mobile() {
             <Box w={{ base: '80%', md: '74%', lg: '84%' }} m="auto" className="OffSlider" >
                 <Slider {...settings}>
                     {mobile.filter(item=>item.category_name==="mobiles").map(item =>
-                        <NavLink to={`/products/view/${item.item_id}`} key={Date.now()+item.item_id+Math.random()}>
+                        <a href={`/products/view/${item.item_id}`} target={"_blank"} rel={"noopener noreferrer"} key={Date.now()+item.item_id+Math.random()}>
                         <Box m="5px" alignItems="center" textAlign={"center"}>
                         <Img maxWidth="190px" h="220px" m="auto" _hover={{ transform: "scale(1.1)", transition: "400ms" }} p="10px" src={item.image} alt="" />
                             <Text fontWeight="500"> {item.description}</Text>
@@ -124,7 +124,7 @@ function Mobile() {
                         </Flex>
                             <Text fontWeight={"medium"} color={"green"}>Upto {item.discount} % Off</Text>
                         </Box>
-                        </NavLink>
+                        </a>
                     )}
 
                 </Slider>

@@ -152,7 +152,7 @@ function Viewpage() {
             // Check if viewData has items
             console.log(viewData[0], "Adding to wishlist");
 
-            fetch(`https://flipkart-data.onrender.com/products`, {
+            fetch(`http://flipkart-data.onrender.com/products`, {
                 method: "POST",
                 body: JSON.stringify({ ...viewData[0] }), // Send the first item in viewData
                 headers: {

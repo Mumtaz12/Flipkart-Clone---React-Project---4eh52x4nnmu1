@@ -117,6 +117,7 @@ export function Signup() {
   return (
       <>
         <Button
+            width={{ base: "8rem", md: "19.5rem" }}
             _hover={{ bg: 'white' }}
             fontWeight="400"
             marginBottom="2"
@@ -170,6 +171,7 @@ export function Signup() {
                   <FormControl>
                     <FormLabel>Email address</FormLabel>
                     <Input
+                        width={{ base: "13rem", md: "19.5rem" }}
                         id="email"
                         color="black"
                         marginTop="-3"
@@ -186,6 +188,7 @@ export function Signup() {
                     </Text>
                     <FormLabel marginTop="5">Password</FormLabel>
                     <Input
+                        width={{ base: "13rem", md: "19.5rem" }}
                         id="password"
                         color="black"
                         marginTop="-3"
@@ -202,7 +205,7 @@ export function Signup() {
                       {error.password}
                     </Text>
 
-                    <Text marginTop="7" fontSize="xs">
+                    <Text marginTop="7" fontSize="xs" width={{ base: "14rem", md: "19.5rem" }}>
                       By continuing, you agree to Flipkart's{' '}
                       <Link color="#2f74f0" href="">
                         Terms of Use{' '}
@@ -221,7 +224,7 @@ export function Signup() {
                         color="white"
                         bg="#fb641b"
                         _hover={{bg:"#fb641b"}}
-                        width="19.7rem"
+                        width={{ base: "13rem", md: "19.7rem" }}
                     >
                       CONTINUE
                     </Button>
@@ -234,7 +237,7 @@ export function Signup() {
                         padding="6"
                         color="#2f74f0"
                         bg="#fff"
-                        width="19.7rem"
+                        width={{ base: "14rem", md: "19.7rem" }}
 
                     >
                       Existing User?{<Login />}

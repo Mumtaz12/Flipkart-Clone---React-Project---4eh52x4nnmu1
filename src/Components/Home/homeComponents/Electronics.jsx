@@ -111,9 +111,9 @@ function Electronics() {
 
                 <WrapItem pt="30px">
                     <Button  fontSize={{ base: '6px', md: '9px', lg: '12px' }} m={"auto"} colorScheme='messenger'>
-                    <NavLink to={`/products/electronics`}>
+                    <a href={`/products/electronics`} target={"_blank"} rel={"noopener noreferrer"}>
                         VIEW ALL
-                    </NavLink>
+                    </a>
                         </Button>
                 </WrapItem>
                 <Img   src="https://rukminim1.flixcart.com/fk-p-flap/278/278/image/7593e7b6640822c1.jpg?q=90" alt="fg" />
@@ -122,7 +122,7 @@ function Electronics() {
             <Box w={{ base: '80%', md: '75%', lg: '84%' }} m="auto" className="OffSlider" >
                 <Slider {...settings}>
                     {electronics.filter(item=>item.category_name==="electronics").map(item =>
-                    <NavLink to={`/products/view/${item.item_id}`} key={Date.now()+item.item_id+Math.random()}>
+                    <a href={`/products/view/${item.item_id}`} target={"_blank"} rel={"noopener noreferrer"} key={Date.now()+item.item_id+Math.random()}>
                         <Box m="5px" alignItems="center" textAlign={"center"} >
                         <Img maxWidth="210px" h="210px" m="auto" _hover={{ transform: "scale(1.1)", transition: "400ms" }} p="10px" src={item.image} alt="" />
                         <Text fontWeight="500" p="5px" fontSize={{base:"13px", md:"12px", lg:"14px"}}> {item.description}</Text>
@@ -133,7 +133,7 @@ function Electronics() {
                        
                         <Text  mt="8px" fontSize={{base:"13px", md:"14px", lg:"15px"}} fontWeight={"medium"} color={"green"} mb="-40px"> {item.discount} % Off</Text>
                     </Box>
-                    </NavLink>
+                    </a>
                     )}
 
                 </Slider>

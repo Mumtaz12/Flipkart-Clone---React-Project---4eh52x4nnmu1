@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import {Navigate, Route, Outlet,Routes} from 'react-router-dom'
 import CartPage from './Cart/CartPage'
 import CongratsPage from './Cart/CongratsPage'
 import DeliveryPage from './Cart/DeliveryPage'
@@ -35,7 +35,7 @@ const AllRoutes = () => {
     return (
         <>
             <Routes>
-                <Route exact path='/' element={<Home/>}/>
+                <Route path='/' element={<Home/>}/>
                 {/*<Route path='/login' element={<Login/>}/>*/}
                 <Route path='/products/:category_name' element={<Products/>}/>
                 <Route path='/products' element={<Products/>}/>
@@ -81,6 +81,7 @@ const AllRoutes = () => {
                         <OrderPage/>
                     </PrivateRoutes>
                 }/>
+                <Route path="*" element={<Navigate to="/" />} />
             </Routes>
         </>
     )

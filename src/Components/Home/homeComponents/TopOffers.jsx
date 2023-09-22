@@ -104,9 +104,9 @@ function TopOffers() {
                 <Text paddingTop={{base:"120px", md:"120px", lg:"70px"}} fontSize={{ base: '10px', md: '20px', lg: '30px' }}>  Top Deals Of the Day</Text>
 
                 <WrapItem mt="30px">
-                    <Button fontSize={{ base: '6px', md: '9px', lg: '12px' }} m={"auto"} colorScheme='messenger'><NavLink to='./products/home'>
+                    <Button fontSize={{ base: '6px', md: '9px', lg: '12px' }} m={"auto"} colorScheme='messenger'><a href={'./products/home'} target={"_blank"} rel={"noopener noreferrer"}>
                         VIEW ALL
-                    </NavLink></Button>
+                    </a></Button>
                 </WrapItem>
                 <Img mt="2%" src="https://images.unsplash.com/photo-1607082349566-187342175e2f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZGlzY291bnR8ZW58MHx8MHx8&w=1000&q=80" alt="fg" />
 

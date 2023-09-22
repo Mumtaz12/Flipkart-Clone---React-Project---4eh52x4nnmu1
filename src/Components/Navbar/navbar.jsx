@@ -78,7 +78,7 @@ const Navbar = () => {
   const [hiddenDiv, setHiddenDiv] = useState(false)
 
   const [isLargerThan670] = useMediaQuery('(min-width: 730px)')
-  const url = `https://flipkart-data.onrender.com/all`
+  const url = `http://flipkart-data.onrender.com/all`
 
 
   const [data, setData] = useState([])
@@ -372,9 +372,9 @@ const Navbar = () => {
                       fontWeight="600"
                   > <Icon
                       as={FaHeart}
-                      boxSize={5} // Adjust the size as needed
-                      color="red.500" // Customize the color
-                      _hover={{ color: 'red.600' }} // Change color on hover if desired
+                      boxSize={3} // Adjust the size as needed
+                      color="white.500" // Customize the color
+                      _hover={{ color: 'white.600' }} // Change color on hover if desired
                       cursor="pointer" // Add a pointer cursor to indicate it's clickable
                   />Wishlist
 
@@ -743,9 +743,10 @@ const Navbar = () => {
                   <NavLink to='./wishlist' >
                     <Icon
                         as={FaHeart}
-                        boxSize={5} // Adjust the size as needed
-                        color="red.500" // Customize the color
-                        _hover={{ color: 'red.600' }} // Change color on hover if desired
+                        boxSize={4} // Adjust the size as needed
+                        color="white" // Customize the color
+                        _hover={{ color: 'white.600' }} // Change color on hover if desired
+
                         cursor="pointer" // Add a pointer cursor to indicate it's clickable
                     />
                   </NavLink>

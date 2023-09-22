@@ -103,7 +103,7 @@ function Groceries() {
 
                 <WrapItem mt="10%">
                     <Button fontSize={{ base: '6px', md: '9px', lg: '12px' }} m={"auto"} colorScheme='messenger'>
-                    <NavLink to='./products/grocery'>VIEW ALL </NavLink>
+                    <a href={'./products/grocery'} target={"_blank"} rel={"noopener noreferrer"}>VIEW ALL </a>
                     </Button>
                 </WrapItem>
                 <Img    src="https://www.rvsmedia.co.uk/wp-content/uploads/2021/07/Apparel-Industry_Article_2.jpg" alt="fg" />
@@ -112,27 +112,27 @@ function Groceries() {
             <Box w={{ base: '80%', md: '75%', lg: '84%' }} m="auto" className="OffSlider">
                 <Slider {...settings}>
                     {groceries.filter(item=>item.category_name==="grocery").map(item =>
-                    <NavLink to={`/products/view/${item.item_id}`} key={Date.now()+item.item_id+Math.random()}>
+                    <a href={`/products/view/${item.item_id}`} target={"_blank"} rel={"noopener noreferrer"} key={Date.now()+item.item_id+Math.random()}>
                         <Box m="5px" alignItems="center" textAlign={"center"}>
                         <Img mw="170px" h="200px" m="auto" _hover={{ transform: "scale(1.1)",transition:"400ms" }} p="10px" src={item.image} alt="" />
                         <Text fontWeight="600" p="5px" fontSize={{base:"13px", md:"12px", lg:"14px"}}> {item.description}</Text>
                         
                         <Text color={"green"} fontSize={{base:"13px", md:"14px", lg:"15px"}}> Min {item.discount} % Off </Text>
                            
-                    </Box> </NavLink>)}
+                    </Box> </a>)}
 
                 </Slider>
             </Box>
             {/* mobile version */}
             <Box display={{ base: 'block', md: 'none', lg: 'none' }}  bg="orange" backgroundImage={"https://rukminim1.flixcart.com/fk-p-reco/600/150/images/Reco_BDS_ffb8e3.jpg?q=90"} p="10px"> 
-                <Box mb="20px" mt="10px" alignItems={"center"} display="flex" justifyContent={"space-between"}> <Text fontSize={"20px"}>  Rush Hour</Text> <Button size="sm" colorScheme='messenger'> <NavLink to='./products/home'>
+                <Box mb="20px" mt="10px" alignItems={"center"} display="flex" justifyContent={"space-between"}> <Text fontSize={"20px"}>  Rush Hour</Text> <Button size="sm" colorScheme='messenger'> <NavLink to={'./products/home'}>
                     VIEW ALL
                 </NavLink></Button></Box>
                 <Box className='itemGrid'display={{ base: 'grid', md: 'none', lg: 'none' }} >
                     
                     
                     {groceries.filter(item=>item.category_name==="grocery").map(item => 
-                    <NavLink to={`/products/view/${item.item_id}`} key={Date.now()+item.item_id+Math.random()}>
+                    <NavLink to={`/products/view/${item.item_id}`}  key={Date.now()+item.item_id+Math.random()}>
                     <Box m="5px" borderRadius="6px" bg="white" alignItems="center" textAlign={"center"}  border="1px solid silver">
                         <Img w="180px" h="190px" m="auto" _hover={{ transform: "scale(1.1)", transition: "400ms" }}  p="10px" src={item.image} alt="" />
                         <Text fontWeight="700"> {item.description}</Text>

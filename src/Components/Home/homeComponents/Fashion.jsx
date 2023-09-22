@@ -107,7 +107,7 @@ function Fashion() {
 
                 <WrapItem mt="20px"> 
                     <Button  fontSize={{ base: '6px', md: '9px', lg: '12px' }} m={"auto"} colorScheme='messenger'>
-                        <NavLink to='./products/fashion'>VIEW ALL </NavLink>
+                        <a href={'./products/fashion'} target={"_blank"} rel={"noopener noreferrer"}>VIEW ALL </a>
                     </Button>
                 </WrapItem>
                 <Img  pt="15px" src="https://rukminim1.flixcart.com/fk-p-flap/278/278/image/31d46a8fd93eeedd.jpg?q=90" alt="fg" />
@@ -116,7 +116,7 @@ function Fashion() {
             <Box w={{ base: '60%', md: '55%', lg: '70%' }} m="auto" className="OffSlider">
                 <Slider {...settings}>
                     {fashion.filter(item=>item.category_name==="fashion").map((item, index) => 
-                    <NavLink to={`/products/view/${item.item_id}`} key={Date.now()+item.item_id+Math.random()}>
+                    <a href={`/products/view/${item.item_id}`}  target={"_blank"} rel={"noopener noreferrer"} key={Date.now()+item.item_id+Math.random()}>
                     <Box  m="5px" alignItems="center" textAlign={"center"} >
                         <Img maxWidth="190px" h="220px" m="auto" _hover={{ transform: "scale(1.1)", transition: "400ms" }} p="10px" src={item.image} alt="" />
                         <Text fontWeight="500" fontSize={{base:"13px", md:"12px", lg:"14px"}}> {item.description}</Text>
@@ -126,7 +126,7 @@ function Fashion() {
                        </Flex>
                         <Text fontWeight={"medium"} mt="8px" fontSize={{base:"13px", md:"14px", lg:"15px"}} color={"green"}>Max {item.discount} % Off</Text>
                     </Box>
-                    </NavLink>
+                    </a>
                     )}
 
                 </Slider>

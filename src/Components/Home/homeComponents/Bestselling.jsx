@@ -103,9 +103,9 @@ function Bestselling() {
 
                 <WrapItem mt="20px">
                     <Button fontSize={{ base: '6px', md: '9px', lg: '12px' }} m={"auto"} colorScheme='messenger'>
-                    <NavLink to='./products/home'>
+                    <a href={'./products/home'} target={"_blank"} rel={"noopener noreferrer"}>
                         VIEW ALL
-                        </NavLink>
+                        </a>
                         </Button>
                 </WrapItem>
                 <Img   src="https://rukminim1.flixcart.com/reco/278/278/images/Reco_DTO.jpg?q=90" alt="fg" />
@@ -114,14 +114,14 @@ function Bestselling() {
             <Box w={{ base: '80%', md: '75%', lg: '84%' }} m="auto" className="OffSlider">
                 <Slider {...settings}>
                     {bestselling.filter(item=>item.category_name==="home").map((item, index) =>
-                        <NavLink to={`/products/view/${item.item_id}`} key={Date.now()+index+Math.random()}>
+                        <a href={`/products/view/${item.item_id}`} target={"_blank"} rel={"noopener noreferrer"}key={Date.now()+index+Math.random()}>
                             <Box m="5px" alignItems="center" textAlign={"center"} >
                             <Img maxWidth="190px" h="240px" m="auto" _hover={{ transform: "scale(1.1)", transition: "400ms" }} p="10px" src={item.image} alt="" />
                                 <Text p="5px" fontWeight="500" fontSize={{base:"13px", md:"12px", lg:"14px"}}> {item.description}</Text>
                             
                                 <Text pb="16px" fontWeight={"medium"} color={"green"} mt="8px" fontSize={{base:"13px", md:"14px", lg:"15px"}}> From  ₹  {item.new_price} </Text>
                             </Box>
-                        </NavLink>
+                        </a>
                     )}
 
                 </Slider>

@@ -103,7 +103,7 @@ function Appliances() {
 
                 <WrapItem  pt="20px">
                     <Button fontSize={{ base: '6px', md: '9px', lg: '12px' }} m={"auto"} colorScheme='messenger'>
-                    <NavLink to='./products/appliances'>VIEW ALL </NavLink>
+                    <a href={'./products/appliances'} target="_blank">VIEW ALL </a>
                     </Button>
                 </WrapItem>
                 <Img  src="https://rukminim1.flixcart.com/fk-p-flap/278/278/image/964e5530abdf3180.jpg?q=90" alt="fg" />
@@ -111,8 +111,8 @@ function Appliances() {
             </Box>
             <Box w={{ base: '80%', md: '75%', lg: '84%' }} m="auto" className='OffSlider'>
                 <Slider {...settings}>
-                    {appliances.filter(item=>item.category_name==="appliances").map((item, index) => 
-                    <NavLink to={`/products/view/${item.item_id}`} key={index}>
+                    {appliances.filter(item=>item.category_name==="appliances").map((item, index) =>
+                            <a href={`/products/view/${item.item_id}`} target={"_blank"} rel={"noopener noreferrer"}key={index + Math.random()}>
                     <Box m="5px" alignItems="center" textAlign={"center"} >
                     <Img maxWidth="190px" h="200px" m="auto" _hover={{ transform: "scale(1.1)", transition: "400ms" }} p="10px" src={item.image} alt="" />
                         <Text fontWeight="500" p="5px" fontSize={{base:"13px", md:"12px", lg:"14px"}}> {item.description}</Text>
@@ -120,7 +120,7 @@ function Appliances() {
                         <Text fontWeight={"medium"} mt="8px" fontSize={{base:"13px", md:"14px", lg:"15px"}} color={"green"}>Under ₹ {item.old_price}</Text>  
                 
                     </Box>
-                    </NavLink>
+                    </a>
                     )}
 
                 </Slider>
@@ -133,8 +133,8 @@ function Appliances() {
                 </NavLink></Button></Box>
                 <Box className='itemGrid'display={{ base: 'grid', md: 'none', lg: 'none' }} >
 
-                    {appliances.filter(item=>item.category_name==="appliances").map((item, index) => 
-                    <NavLink to={`/products/view/${item.item_id}`} key={index+Math.random()}>
+                    {appliances.filter(item=>item.category_name==="appliances").map((item, index) =>
+                            <NavLink to={`/products/view/${item.item_id}`}  key={index + Math.random()}>
                     <Box   m="5px" borderRadius="6px" bg="white" alignItems="center" textAlign={"center"} border="1px solid silver">
                     <Img maxWidth="150px" h="150px" m="auto" _hover={{ transform: "scale(1.1)", transition: "400ms" }} p="10px" src={item.image} alt="" />
                         <Text fontWeight="500" p="5px"> {item.description}</Text>

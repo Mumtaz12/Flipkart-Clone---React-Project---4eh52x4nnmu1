@@ -289,7 +289,7 @@ export function Login() {
                           {' '}
                           <FormLabel>Email address</FormLabel>
                           <Input
-                              width={{ base: "8rem", md: "19.5rem" }}
+                              width={{ base: "9rem", md: "19.5rem" }}
                               color="black"
                               marginTop="-3"
                               name="email"
@@ -314,7 +314,7 @@ export function Login() {
                           {' '}
                           <FormLabel marginTop="5">Enter your OTP</FormLabel>
                           <Input
-                              width={{ base: "8rem", md: "19.5rem" }}
+                              width={{ base: "9rem", md: "19.5rem" }}
                               color="black"
                               marginTop="-3"
                               name="password"
@@ -331,7 +331,7 @@ export function Login() {
                           {' '}
                           <FormLabel marginTop="5">Password</FormLabel>
                           <Input
-                              width={{ base: "8rem", md: "19.5rem" }}
+                              width={{ base: "9rem", md: "19.5rem" }}
                               color="black"
                               marginTop="-3"
                               name="password"
@@ -348,7 +348,7 @@ export function Login() {
                         </>
                     )}
 
-                    <Text marginTop="5" fontSize="xs"  width={{ base: "8rem", md: "19.5rem" }} >
+                    <Text marginTop="5" fontSize="xs"  width={{ base: "9rem", md: "19.5rem" }} >
                       By continuing, you agree to Flipkart's{' '}
                       <Link color="#2f74f0" href="">
                         Terms of Use{' '}
@@ -362,13 +362,13 @@ export function Login() {
                     {!isCheck ? (
                         <Button
                             onClick={handleSubmit}
-                            borderRadius="0.5"
+                            borderRadius="0.8"
                             marginTop="4"
                             padding="6"
                             color="white"
                             bg="#fb641b"
                             _hover={{ bg: "#fb641b" }}
-                            width={{ base: "8rem", md: "19.5rem" }}
+                            width={{ base: "9rem", md: "19.5rem" }}
                         >
                           Login
                         </Button>
@@ -381,7 +381,7 @@ export function Login() {
                             color="white"
                             _hover={{ bg: "#fb641b" }}
                             bg="#fb641b"
-                            width={{ base: "8rem", md: "19.5rem" }}
+                            width={{ base: "9rem", md: "19.5rem" }}
                             required
                         >
                           Submit OTP
@@ -397,7 +397,7 @@ export function Login() {
                         padding="6"
                         color="#2f74f0"
                         bg="white"
-                        width={{ base: "8rem", md: "19.5rem" }}
+                        width={{ base: "9rem", md: "19.5rem" }}
                         disabled={isResendDisabled} // Disable the button when countdown is active
                     >
                       Resend OTP ({otpCountdown}s)
@@ -417,7 +417,7 @@ export function Login() {
                               padding="6"
                               color="#2f74f0"
                               bg="white"
-                              width={{ base: "8rem", md: "19.5rem" }}
+                              width={{ base: "9rem", md: "19.5rem" }}
                           >
                             Request OTP
                           </Button>
@@ -435,7 +435,7 @@ export function Login() {
                               color="#2f74f0"
                               bg="white"
                               // width="19.7rem"
-                              width={{ base: "8rem", md: "19.5rem" }}
+                              width={{ base: "9rem", md: "19.5rem" }}
                           >
                             Request Password
                           </Button>
@@ -447,7 +447,7 @@ export function Login() {
                           bg="white"
                           textAlign="center"
                           color="#2f74f0"
-                          width={{ base: "8rem", md: "19.5rem" }}
+                          width={{ base: "9rem", md: "19.5rem" }}
                       >
                         New to Flipkart? {<Signup onClose={onClose} />}{' '}
                       </Text>{' '}
